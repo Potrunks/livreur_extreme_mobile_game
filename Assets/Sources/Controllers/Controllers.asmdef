@@ -3,7 +3,9 @@
     "rootNamespace": "",
     "references": [
         "Entities",
-        "Unity.InputSystem"
+        "Unity.InputSystem",
+        "Referentiel",
+        "Business"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],

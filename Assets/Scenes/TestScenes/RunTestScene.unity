@@ -252,8 +252,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5079977704982f747b62c865efc34e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _scooter: {fileID: 11400000, guid: f6d0deec79eea814cb1b4a34eba09456, type: 2}
-  _rigidbody: {fileID: 363819976}
+  _scooterParameters: {fileID: 11400000, guid: f6d0deec79eea814cb1b4a34eba09456, type: 2}
+  _scooterRigidbody: {fileID: 363819976}
 --- !u!114 &363819978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -282,8 +282,8 @@ MonoBehaviour:
   - m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 363819977}
-        m_TargetAssemblyTypeName: ScooterMoveScript, Controllers
-        m_MethodName: OnMove
+        m_TargetAssemblyTypeName: ScooterMoveComponent, Controllers
+        m_MethodName: OnSwipeInput
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
