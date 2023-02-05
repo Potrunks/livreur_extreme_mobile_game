@@ -75,7 +75,6 @@ public class ScooterMoveComponent : MonoBehaviour
                 }
                 break;
             default:
-                // rien
                 break;
         }
     }
