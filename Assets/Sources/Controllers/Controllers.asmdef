@@ -2,7 +2,8 @@
     "name": "Controllers",
     "rootNamespace": "",
     "references": [
-        "Entities"
+        "Entities",
+        "Unity.InputSystem"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
