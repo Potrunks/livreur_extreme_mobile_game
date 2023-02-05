@@ -65,7 +65,14 @@ public class ScooterMoveComponent : MonoBehaviour
                 }
                 break;
             case < 0:
-                // a gauche
+                if (_currentColumn != RoadColumnPosition.LEFT)
+                {
+                    _currentState.OnPlayerInput(ScooterAction.SWIPE_LEFT);
+                }
+                else
+                {
+                    Debug.LogWarning(string.Format(StateMessages.CONSTRAINT_ACTION, ScooterAction.SWIPE_LEFT, _currentColumn));
+                }
                 break;
             default:
                 // rien

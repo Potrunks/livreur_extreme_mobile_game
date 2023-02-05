@@ -5,13 +5,19 @@ using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
 {
-    public class GoForwardScooterMoveState : ScooterMoveState
+    public class SwipeLeftScooterMoveState : ScooterMoveState
     {
         public override IScooterMoveState CheckStateChange(ScooterMoveComponent component)
         {
             if (_nextState != null)
             {
                 return _nextState;
+            }
+
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= -3)
+                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= 0))
+            {
+                return new GoForwardScooterMoveState();
             }
 
             return null;
@@ -23,23 +29,25 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnExit(ScooterMoveComponent component)
         {
+            if (component._currentColumn == RoadColumnPosition.MIDDLE)
+            {
+                component._currentColumn = RoadColumnPosition.LEFT;
+            }
+            else if (component._currentColumn == RoadColumnPosition.RIGHT)
+            {
+                component._currentColumn = RoadColumnPosition.MIDDLE;
+            }
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(-1 * component._scooterParameters.DodgeSpeed, 0, 1) * Time.deltaTime * component._scooterParameters.Speed));
         }
 
         public override void OnPlayerInput(ScooterAction action)
         {
             switch (action)
             {
-                case ScooterAction.SWIPE_LEFT:
-                    _nextState = new SwipeLeftScooterMoveState();
-                    break;
-                case ScooterAction.SWIPE_RIGHT:
-                    _nextState = new SwipeRightScooterMoveState();
-                    break;
                 default:
                     Debug.LogWarning(string.Format(StateMessages.NOT_EXISTS_ACTION, action, this.GetType().Name));
                     break;
