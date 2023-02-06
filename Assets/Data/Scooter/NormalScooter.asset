@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: Normal Scooter
   <Speed>k__BackingField: 2
+  <DodgeSpeed>k__BackingField: 6

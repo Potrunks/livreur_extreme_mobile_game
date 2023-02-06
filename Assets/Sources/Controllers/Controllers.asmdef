@@ -2,7 +2,10 @@
     "name": "Controllers",
     "rootNamespace": "",
     "references": [
-        "Entities"
+        "Entities",
+        "Unity.InputSystem",
+        "Referentiel",
+        "Business"
     ],
     "includePlatforms": [],
     "excludePlatforms": [],
