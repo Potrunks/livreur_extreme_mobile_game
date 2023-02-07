@@ -297,7 +297,7 @@ MonoBehaviour:
     m_ActionId: 31e63232-4730-480c-ae07-0edba7ea4549
     m_ActionName: Driving/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: ForTest
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Driving
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
