@@ -6,7 +6,7 @@ using Assets.Sources.Referentiel.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class ScooterMoveComponent : MonoBehaviour
+public class ScooterMoveComponent : MoveComponent
 {
     [Header("Entity")]
     public Scooter _scooterParameters;

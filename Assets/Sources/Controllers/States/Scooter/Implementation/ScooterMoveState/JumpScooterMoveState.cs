@@ -19,7 +19,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            
+            component._scooterRigidbody.AddForce(Vector3.up * component._scooterParameters.JumpForce);
         }
 
         public override void OnExit(ScooterMoveComponent component)
@@ -29,7 +29,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            
+            component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
         }
 
         public override void OnPlayerInput(ScooterAction action)
