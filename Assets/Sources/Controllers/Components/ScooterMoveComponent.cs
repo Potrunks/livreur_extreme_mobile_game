@@ -55,4 +55,9 @@ public class ScooterMoveComponent : MonoBehaviour
     {
         _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
     }
+
+    public void OnJumpInput(InputAction.CallbackContext context)
+    {
+        // TODO : go to jump state
+    }
 }
