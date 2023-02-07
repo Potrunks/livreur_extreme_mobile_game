@@ -1,7 +1,8 @@
+using Assets.Sources.Business.Implementation;
+using Assets.Sources.Business.Interface;
 using Assets.Sources.Controllers.States.Scooter.Implementation;
 using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
-using Assets.Sources.Referentiel.Messages;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -15,6 +16,7 @@ public class ScooterMoveComponent : MonoBehaviour
 
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
+    private IScooterBusiness _scooterBusiness;
 
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
@@ -23,6 +25,7 @@ public class ScooterMoveComponent : MonoBehaviour
     {
         _currentState = new GoForwardScooterMoveState();
         _currentColumn = RoadColumnPosition.MIDDLE;
+        _scooterBusiness = new ScooterBusiness();
     }
 
     private void Update()
@@ -50,32 +53,6 @@ public class ScooterMoveComponent : MonoBehaviour
 
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
-        Vector3 input = context.ReadValue<Vector3>();
-
-        switch (input.x)
-        {
-            case > 0:
-                if (_currentColumn != RoadColumnPosition.RIGHT)
-                {
-                    _currentState.OnPlayerInput(ScooterAction.SWIPE_RIGHT);
-                }
-                else
-                {
-                    Debug.LogWarning(string.Format(StateMessages.CONSTRAINT_ACTION, ScooterAction.SWIPE_RIGHT, _currentColumn));
-                }
-                break;
-            case < 0:
-                if (_currentColumn != RoadColumnPosition.LEFT)
-                {
-                    _currentState.OnPlayerInput(ScooterAction.SWIPE_LEFT);
-                }
-                else
-                {
-                    Debug.LogWarning(string.Format(StateMessages.CONSTRAINT_ACTION, ScooterAction.SWIPE_LEFT, _currentColumn));
-                }
-                break;
-            default:
-                break;
-        }
+        _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
     }
 }
