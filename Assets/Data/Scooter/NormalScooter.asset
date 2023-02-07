@@ -15,3 +15,4 @@ MonoBehaviour:
   <Name>k__BackingField: Normal Scooter
   <Speed>k__BackingField: 2
   <DodgeSpeed>k__BackingField: 6
+  <JumpForce>k__BackingField: 300

@@ -58,6 +58,9 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        // TODO : go to jump state
+        if (context.performed)
+        {
+            _currentState.OnPlayerInput(ScooterAction.JUMP);
+        }
     }
 }

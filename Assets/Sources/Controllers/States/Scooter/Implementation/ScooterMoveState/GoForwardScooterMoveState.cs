@@ -34,7 +34,9 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
         {
             switch (action)
             {
-                // TODO : add the jump state case
+                case ScooterAction.JUMP:
+                    _nextState = new JumpScooterMoveState();
+                    break;
                 case ScooterAction.SWIPE_LEFT:
                     _nextState = new SwipeLeftScooterMoveState();
                     break;

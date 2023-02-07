@@ -1,6 +1,7 @@
 ﻿using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
+using Assets.Sources.Referentiel.Reference;
 using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
@@ -12,6 +13,12 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
             if (_nextState != null)
             {
                 return _nextState;
+            }
+
+            if (component._isGrounding
+                && component._scooterRigidbody.velocity.y <= PhysicValuesReference.VELOCITY_Y_LOW_THRESHOLD)
+            {
+                return new GoForwardScooterMoveState();
             }
 
             return null;
