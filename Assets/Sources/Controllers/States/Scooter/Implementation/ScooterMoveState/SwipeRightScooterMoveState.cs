@@ -1,6 +1,7 @@
 ﻿using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
+using Assets.Sources.Referentiel.Reference;
 using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
@@ -14,8 +15,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x >= 3)
-                || (component._currentColumn == RoadColumnPosition.LEFT && component.transform.position.x >= 0))
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x >= PhysicValuesReference.TRANSFORM_X_RIGHT_COLUMN)
+                || (component._currentColumn == RoadColumnPosition.LEFT && component.transform.position.x >= PhysicValuesReference.TRANSFORM_X_MIDDLE_COLUMN))
             {
                 return new GoForwardScooterMoveState();
             }
