@@ -2,6 +2,7 @@
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
 using Assets.Sources.Referentiel.Reference;
+using DG.Tweening;
 using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
@@ -26,6 +27,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
+            component.transform.DORotate(new Vector3(0, 0, PhysicValuesReference.ANGLE_Z_ROTATION_LEFT), PhysicValuesReference.ANGLE_Z_ROTATION_TIME_SWIPE)
+                               .OnComplete(() => component.transform.DORotate(new Vector3(0, 0, 0), PhysicValuesReference.ANGLE_Z_ROTATION_TIME_SWIPE_RECOVERY));
         }
 
         public override void OnExit(ScooterMoveComponent component)
