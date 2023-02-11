@@ -32,7 +32,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ANGLE_Z_ROTATION_TIME_SWIPE_RECOVERY);
+            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY);
         }
 
         public override void OnExit(ScooterMoveComponent component)

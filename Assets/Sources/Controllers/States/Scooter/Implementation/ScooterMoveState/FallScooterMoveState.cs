@@ -8,9 +8,9 @@ using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
 {
-    public class JumpScooterMoveState : ScooterMoveState
+    public class FallScooterMoveState : ScooterMoveState
     {
-        public JumpScooterMoveState()
+        public FallScooterMoveState()
         {
             _possibleStateByAction = new Dictionary<ScooterAction, IScooterMoveState>();
         }
@@ -22,9 +22,9 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if (component._scooterRigidbody.velocity.y <= PhysicValuesReference.VELOCITY_Y_LOW_THRESHOLD)
+            if (component._isGrounding)
             {
-                return new FallScooterMoveState();
+                return new GoForwardScooterMoveState();
             }
 
             return null;
@@ -32,8 +32,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.AddForce(Vector3.up * component._scooterParameters.JumpForce);
-            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
+            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_FALL, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_FALL);
         }
 
         public override void OnExit(ScooterMoveComponent component)
