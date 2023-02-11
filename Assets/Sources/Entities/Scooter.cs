@@ -8,4 +8,10 @@ public class Scooter : ScriptableObject
 
     [field: SerializeField]
     public int Speed { get; set; }
+
+    [field: SerializeField]
+    public int DodgeSpeed { get; set; }
+
+    [field: SerializeField]
+    public int JumpForce { get; set; }
 }
