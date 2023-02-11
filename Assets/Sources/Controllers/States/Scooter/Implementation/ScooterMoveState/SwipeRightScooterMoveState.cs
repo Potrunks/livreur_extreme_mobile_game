@@ -3,12 +3,18 @@ using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
 using Assets.Sources.Referentiel.Reference;
 using DG.Tweening;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
 {
     public class SwipeRightScooterMoveState : ScooterMoveState
     {
+        public SwipeRightScooterMoveState()
+        {
+            _possibleStateByAction = new Dictionary<ScooterAction, IScooterMoveState>();
+        }
+
         public override IScooterMoveState CheckStateChange(ScooterMoveComponent component)
         {
             if (_nextState != null)
@@ -50,11 +56,9 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnPlayerInput(ScooterAction action)
         {
-            switch (action)
+            if (!_possibleStateByAction.TryGetValue(action, out _nextState))
             {
-                default:
-                    Debug.LogWarning(string.Format(StateMessages.NOT_EXISTS_ACTION, action, this.GetType().Name));
-                    break;
+                Debug.LogWarning(string.Format(StateMessages.NOT_EXISTS_ACTION, action, this.GetType().Name));
             }
         }
 

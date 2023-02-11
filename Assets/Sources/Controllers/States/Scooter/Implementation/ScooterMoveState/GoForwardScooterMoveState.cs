@@ -1,12 +1,23 @@
 ﻿using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.Controllers.States.Scooter.Implementation
 {
     public class GoForwardScooterMoveState : ScooterMoveState
     {
+        public GoForwardScooterMoveState()
+        {
+            _possibleStateByAction = new Dictionary<ScooterAction, IScooterMoveState>
+            {
+                {ScooterAction.JUMP, new JumpScooterMoveState() },
+                {ScooterAction.SWIPE_LEFT, new SwipeLeftScooterMoveState()},
+                {ScooterAction.SWIPE_RIGHT, new SwipeRightScooterMoveState()}
+            };
+        }
+
         public override IScooterMoveState CheckStateChange(ScooterMoveComponent component)
         {
             if (_nextState != null)
@@ -32,20 +43,9 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnPlayerInput(ScooterAction action)
         {
-            switch (action)
+            if (!_possibleStateByAction.TryGetValue(action, out _nextState))
             {
-                case ScooterAction.JUMP:
-                    _nextState = new JumpScooterMoveState();
-                    break;
-                case ScooterAction.SWIPE_LEFT:
-                    _nextState = new SwipeLeftScooterMoveState();
-                    break;
-                case ScooterAction.SWIPE_RIGHT:
-                    _nextState = new SwipeRightScooterMoveState();
-                    break;
-                default:
-                    Debug.LogWarning(string.Format(StateMessages.NOT_EXISTS_ACTION, action, this.GetType().Name));
-                    break;
+                Debug.LogWarning(string.Format(StateMessages.NOT_EXISTS_ACTION, action, this.GetType().Name));
             }
         }
 
