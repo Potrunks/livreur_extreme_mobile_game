@@ -1,26 +1,32 @@
 ﻿using Assets.Sources.Business.Interface;
+using Assets.Sources.Entities;
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public ChunckRoadParametersComponent InstantiateChunckRoad(GameObject chunckRoadPrefab, ChunckRoadParametersComponent lastChunckRoadInstantiated, Transform parent)
+        public Transform SpawnChuncksRoadRandomly(List<ChunckRoad> chuncksRoad, Transform lastChunckRoadPosition, Transform parent, int chuncksNumber)
         {
-            GameObject newChunckRoad = GameObject.Instantiate
+            for (int i = 0; i < chuncksNumber; i++)
+            {
+                GameObject newChunckRoad = GameObject.Instantiate
                 (
-                    chunckRoadPrefab,
+                    chuncksRoad[0].Model,
                     new Vector3
                         (
-                            lastChunckRoadInstantiated.transform.position.x,
-                            lastChunckRoadInstantiated.transform.position.y,
-                            lastChunckRoadInstantiated.transform.position.z + lastChunckRoadInstantiated.Length
+                            lastChunckRoadPosition.position.x,
+                            lastChunckRoadPosition.position.y,
+                            lastChunckRoadPosition.position.z + chuncksRoad[0].Length
                         ),
-                    lastChunckRoadInstantiated.transform.rotation,
+                    lastChunckRoadPosition.rotation,
                     parent
                 );
+                lastChunckRoadPosition = newChunckRoad.transform;
+            }
 
-            return newChunckRoad.GetComponent<ChunckRoadParametersComponent>();
+            return lastChunckRoadPosition;
         }
     }
 }

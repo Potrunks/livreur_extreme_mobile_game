@@ -1,5 +1,8 @@
 using Assets.Sources.Business.Implementation;
 using Assets.Sources.Business.Interface;
+using Assets.Sources.Entities;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RoadMapGeneratorComponent : MonoBehaviour
@@ -15,11 +18,11 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
     [Header("Instantiate Parameters")]
     [SerializeField]
-    private GameObject _chunckRoadPrefab;
+    private Transform _lastChunckRoadTransform;
     [SerializeField]
-    private ChunckRoadParametersComponent _lastChunckRoadInstantiated;
+    private int _chuncksNumber;
     [SerializeField]
-    private int _numberOfInstantiate;
+    private List<ChunckRoad> _chuncksRoad;
 
     private IMapGeneratorBusiness _mapGeneratorBusiness;
 
@@ -30,9 +33,6 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _numberOfInstantiate; i++)
-        {
-            _lastChunckRoadInstantiated = _mapGeneratorBusiness.InstantiateChunckRoad(_chunckRoadPrefab, _lastChunckRoadInstantiated, transform);
-        }
+        _lastChunckRoadTransform = _mapGeneratorBusiness.SpawnChuncksRoadRandomly(_chuncksRoad, _lastChunckRoadTransform, transform, _chuncksNumber);
     }
 }

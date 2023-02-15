@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 3387374}
   - component: {fileID: 2371582}
   - component: {fileID: 6466720}
-  - component: {fileID: 2029650270807618792}
   m_Layer: 3
   m_Name: Freeway Straight 2
   m_TagString: Untagged
@@ -99,16 +98,3 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300000, guid: 6421912752fc45944a04fb09aae2e8a6, type: 3}
---- !u!114 &2029650270807618792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 110814}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bde8fbb36e24714e9612b2cd43a7d98, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  <Length>k__BackingField: 5

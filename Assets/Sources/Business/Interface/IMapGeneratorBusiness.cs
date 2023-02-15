@@ -1,9 +1,11 @@
-﻿using UnityEngine;
+﻿using Assets.Sources.Entities;
+using System.Collections.Generic;
+using UnityEngine;
 
 namespace Assets.Sources.Business.Interface
 {
     public interface IMapGeneratorBusiness
     {
-        ChunckRoadParametersComponent InstantiateChunckRoad(GameObject chunckRoadPrefab, ChunckRoadParametersComponent lastChunckRoadInstantiated, Transform parent);
+        Transform SpawnChuncksRoadRandomly(List<ChunckRoad> chuncksRoad, Transform lastChunckRoadPosition, Transform parent, int chuncksNumber);
     }
 }
