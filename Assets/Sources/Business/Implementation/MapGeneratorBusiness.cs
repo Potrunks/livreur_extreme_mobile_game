@@ -1,5 +1,6 @@
 ﻿using Assets.Sources.Business.Interface;
 using Assets.Sources.Entities;
+using Assets.Sources.Referentiel.Reference;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -27,7 +28,7 @@ namespace Assets.Sources.Business.Implementation
                         newChunckRoad.transform.position.y + offset.y,
                         newChunckRoad.transform.position.z + offset.z
                     );
-                newChunckRoad.name = string.Format("ChunckRoad{0}", i);
+                newChunckRoad.name = string.Format(GameObjectNameReference.CHUNCK_ROAD_NEW_NAME, i);
                 lastChunckRoadTransform = newChunckRoad.transform;
             }
 
@@ -36,8 +37,8 @@ namespace Assets.Sources.Business.Implementation
 
         private Vector3 CalculateOffsetBetweenTwoChuncksRoad(Transform lastChunck, Transform newChunck)
         {
-            Transform backAnchorNewChunckRoad = newChunck.Find("BackAnchor").transform;
-            Transform frontAnchorLastChunckRoad = lastChunck.Find("FrontAnchor").transform;
+            Transform backAnchorNewChunckRoad = newChunck.Find(GameObjectNameReference.CHUNCK_ROAD_BACK_ANCHOR).transform;
+            Transform frontAnchorLastChunckRoad = lastChunck.Find(GameObjectNameReference.CHUNCK_ROAD_FRONT_ANCHOR).transform;
 
             return new Vector3
             {
