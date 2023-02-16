@@ -21,13 +21,13 @@ namespace Assets.Sources.Business.Implementation
                 );
 
                 Vector3 offset = CalculateOffsetBetweenTwoChuncksRoad(lastChunckRoadTransform, newChunckRoad.transform);
-
                 newChunckRoad.transform.position = new Vector3
                     (
                         newChunckRoad.transform.position.x + offset.x,
                         newChunckRoad.transform.position.y + offset.y,
                         newChunckRoad.transform.position.z + offset.z
                     );
+
                 newChunckRoad.name = string.Format(GameObjectNameReference.CHUNCK_ROAD_NEW_NAME, i);
                 lastChunckRoadTransform = newChunckRoad.transform;
             }
