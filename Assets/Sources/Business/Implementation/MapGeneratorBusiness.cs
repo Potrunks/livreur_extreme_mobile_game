@@ -7,26 +7,44 @@ namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public Transform SpawnChuncksRoadRandomly(List<ChunckRoad> chuncksRoad, Transform lastChunckRoadPosition, Transform parent, int chuncksNumber)
+        public Transform SpawnChuncksRoadRandomly(List<ChunckRoad> chuncksRoadStock, Transform lastChunckRoadTransform, Transform parent, int chuncksNumber)
         {
             for (int i = 0; i < chuncksNumber; i++)
             {
                 GameObject newChunckRoad = GameObject.Instantiate
                 (
-                    chuncksRoad[0].Model,
-                    new Vector3
-                        (
-                            lastChunckRoadPosition.position.x,
-                            lastChunckRoadPosition.position.y,
-                            lastChunckRoadPosition.position.z + chuncksRoad[0].Length
-                        ),
-                    lastChunckRoadPosition.rotation,
+                    chuncksRoadStock[0].Model,
+                    lastChunckRoadTransform.position,
+                    lastChunckRoadTransform.rotation,
                     parent
                 );
-                lastChunckRoadPosition = newChunckRoad.transform;
+
+                Vector3 offset = CalculateOffsetBetweenTwoChuncksRoad(lastChunckRoadTransform, newChunckRoad.transform);
+
+                newChunckRoad.transform.position = new Vector3
+                    (
+                        newChunckRoad.transform.position.x + offset.x,
+                        newChunckRoad.transform.position.y + offset.y,
+                        newChunckRoad.transform.position.z + offset.z
+                    );
+                newChunckRoad.name = string.Format("ChunckRoad{0}", i);
+                lastChunckRoadTransform = newChunckRoad.transform;
             }
 
-            return lastChunckRoadPosition;
+            return lastChunckRoadTransform;
+        }
+
+        private Vector3 CalculateOffsetBetweenTwoChuncksRoad(Transform lastChunck, Transform newChunck)
+        {
+            Transform backAnchorNewChunckRoad = newChunck.Find("BackAnchor").transform;
+            Transform frontAnchorLastChunckRoad = lastChunck.Find("FrontAnchor").transform;
+
+            return new Vector3
+            {
+                x = frontAnchorLastChunckRoad.position.x - backAnchorNewChunckRoad.position.x,
+                y = frontAnchorLastChunckRoad.position.y - backAnchorNewChunckRoad.position.y,
+                z = frontAnchorLastChunckRoad.position.z - backAnchorNewChunckRoad.position.z
+            };
         }
     }
 }
