@@ -10,5 +10,8 @@ namespace Assets.Sources.Entities
 
         [field: SerializeField]
         public GameObject Model { get; private set; }
+
+        [field: SerializeField]
+        public int SpawnPercentage { get; private set; }
     }
 }

@@ -2,6 +2,7 @@
 using Assets.Sources.Entities;
 using Assets.Sources.Referentiel.Reference;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Sources.Business.Implementation
@@ -12,11 +13,13 @@ namespace Assets.Sources.Business.Implementation
         {
             for (int i = 0; i < chuncksNumber; i++)
             {
+                ChunckRoad chunckRoadToSpawn = GetRandomChunckRoadModel(chuncksRoadStock);
+
                 GameObject newChunckRoad = GameObject.Instantiate
                 (
-                    chuncksRoadStock[0].Model,
+                    chunckRoadToSpawn.Model,
                     lastChunckRoadTransform.position,
-                    lastChunckRoadTransform.rotation,
+                    chunckRoadToSpawn.Model.transform.rotation,
                     parent
                 );
 
@@ -28,7 +31,7 @@ namespace Assets.Sources.Business.Implementation
                         newChunckRoad.transform.position.z + offset.z
                     );
 
-                newChunckRoad.name = string.Format(GameObjectNameReference.CHUNCK_ROAD_NEW_NAME, i);
+                newChunckRoad.name = chunckRoadToSpawn.Name;
                 lastChunckRoadTransform = newChunckRoad.transform;
             }
 
@@ -46,6 +49,14 @@ namespace Assets.Sources.Business.Implementation
                 y = frontAnchorLastChunckRoad.position.y - backAnchorNewChunckRoad.position.y,
                 z = frontAnchorLastChunckRoad.position.z - backAnchorNewChunckRoad.position.z
             };
+        }
+
+        private ChunckRoad GetRandomChunckRoadModel(List<ChunckRoad> chuncksRoadStock)
+        {
+            int randomSpawnPercentage = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_PERCENTAGE, RangeValueReference.MAX_RANGE_SPAWN_PERCENTAGE);
+            List<ChunckRoad> chuncksRoadSelected = chuncksRoadStock.Where(chr => chr.SpawnPercentage >= randomSpawnPercentage).ToList();
+            int randomSpawnIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, chuncksRoadSelected.Count());
+            return chuncksRoadSelected[randomSpawnIndex];
         }
     }
 }

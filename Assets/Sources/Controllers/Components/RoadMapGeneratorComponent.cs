@@ -6,15 +6,6 @@ using UnityEngine;
 
 public class RoadMapGeneratorComponent : MonoBehaviour
 {
-    /**
-     * BUT : Générer une map aleatoirement
-     * Il faut un previous, current et next chunck
-     * Arrivé a la moitié du current, load le next et delete le previous
-     * 
-     * Un tronçon est composé de chuncks.
-     * Un chunck contient un morceau de route aléatoire issu d'un vivier de route qui ont un pourcentage de chance de pop.
-     */
-
     [Header("Instantiate Parameters")]
     [SerializeField]
     private Transform _lastChunckRoadTransform;

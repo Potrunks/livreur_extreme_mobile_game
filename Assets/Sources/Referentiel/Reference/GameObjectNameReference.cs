@@ -4,6 +4,5 @@
     {
         public static string CHUNCK_ROAD_FRONT_ANCHOR = "FrontAnchor";
         public static string CHUNCK_ROAD_BACK_ANCHOR = "BackAnchor";
-        public static string CHUNCK_ROAD_NEW_NAME = "ChunckRoad{0}";
     }
 }

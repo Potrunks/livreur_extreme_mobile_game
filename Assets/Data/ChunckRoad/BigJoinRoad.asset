@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8a334e627bbf5c4e91f73f5c15ae5ea, type: 3}
-  m_Name: BasicRoad
+  m_Name: BigJoinRoad
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: BasicRoad
-  <Model>k__BackingField: {fileID: 110814, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
-  <SpawnPercentage>k__BackingField: 100
+  <Name>k__BackingField: BigJoinRoad
+  <Model>k__BackingField: {fileID: 164378, guid: 409109bbaa58cf340b5fea204e6aac85, type: 3}
+  <SpawnPercentage>k__BackingField: 20
