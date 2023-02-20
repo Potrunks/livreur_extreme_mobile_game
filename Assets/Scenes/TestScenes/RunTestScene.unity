@@ -490,8 +490,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d662cbb42bcbce34788e2940b3796b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _lastChunckRoadTransform: {fileID: 844410087}
-  _chuncksNumber: 25
+  _firstChunckRoadTransform: {fileID: 844410087}
+  _firstLevel: 0
+  _chuncksNumber: 100
   _chuncksRoad:
   - {fileID: 11400000, guid: 6674189f24a0f9a4d86a490249406410, type: 2}
   - {fileID: 11400000, guid: dce14bdc62b350349a13fc148aa2c291, type: 2}

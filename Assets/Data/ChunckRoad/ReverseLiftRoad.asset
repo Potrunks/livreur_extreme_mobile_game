@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: ReverseLiftRoad
   <Model>k__BackingField: {fileID: 168972, guid: bea12444d08683e4aaf0df38e0bda6cc, type: 3}
-  <SpawnPercentage>k__BackingField: 10
+  <SpawnPercentage>k__BackingField: 20
   <RoadLevel>k__BackingField: 3
