@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets.Sources.Referentiel.Enum;
+using UnityEngine;
 
 namespace Assets.Sources.Entities
 {
@@ -13,5 +14,8 @@ namespace Assets.Sources.Entities
 
         [field: SerializeField]
         public int SpawnPercentage { get; private set; }
+
+        [field: SerializeField]
+        public RoadLevel RoadLevel { get; private set; }
     }
 }

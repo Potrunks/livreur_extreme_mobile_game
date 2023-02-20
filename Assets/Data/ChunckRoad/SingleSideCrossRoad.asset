@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b8a334e627bbf5c4e91f73f5c15ae5ea, type: 3}
-  m_Name: LiftRoad
+  m_Name: SingleSideCrossRoad
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: LiftRoad
-  <Model>k__BackingField: {fileID: 168972, guid: 401d27194e0344948b125cf0483f7637, type: 3}
-  <SpawnPercentage>k__BackingField: 10
-  <RoadLevel>k__BackingField: 2
+  <Name>k__BackingField: SingleSideCrossRoad
+  <Model>k__BackingField: {fileID: 145004, guid: b74054c7819af8a458ae5a11853280ac, type: 3}
+  <SpawnPercentage>k__BackingField: 20
+  <RoadLevel>k__BackingField: 0
