@@ -18,11 +18,21 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     private List<ChunckRoad> _chuncksRoad;
 
     private MapGeneratorDto _currentMapGeneratorDto;
-
+    private RoadMapGeneratorComponent _instance;
     private IMapGeneratorBusiness _mapGeneratorBusiness;
 
     private void Awake()
     {
+        if (_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(_instance);
+            return;
+        }
+
         _mapGeneratorBusiness = new MapGeneratorBusiness();
 
         _currentMapGeneratorDto = new MapGeneratorDto
