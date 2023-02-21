@@ -492,7 +492,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firstChunckRoadTransform: {fileID: 844410087}
   _firstLevel: 0
-  _chuncksNumber: 100
+  _chuncksNumber: 10
   _chuncksRoad:
   - {fileID: 11400000, guid: 6674189f24a0f9a4d86a490249406410, type: 2}
   - {fileID: 11400000, guid: dce14bdc62b350349a13fc148aa2c291, type: 2}

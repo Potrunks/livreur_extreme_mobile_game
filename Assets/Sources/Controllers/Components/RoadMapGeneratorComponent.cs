@@ -18,7 +18,7 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     private List<ChunckRoad> _chuncksRoad;
 
     private MapGeneratorDto _currentMapGeneratorDto;
-    private RoadMapGeneratorComponent _instance;
+    public static RoadMapGeneratorComponent _instance;
     private IMapGeneratorBusiness _mapGeneratorBusiness;
 
     private void Awake()
@@ -45,6 +45,12 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
     private void Start()
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, _currentMapGeneratorDto.LastChunckRoadInstantiated, transform, _chuncksNumber, _currentMapGeneratorDto.CurrentLevel, _currentMapGeneratorDto.LevelBeforeTunnel);
+        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+    }
+
+    public void SpawnMultipleChunckRoadRandomly(GameObject spawner)
+    {
+        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        spawner.SetActive(false);
     }
 }

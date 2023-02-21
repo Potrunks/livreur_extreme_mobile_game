@@ -10,18 +10,19 @@ namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public MapGeneratorDto SpawnMultipleChunckRoadRandomly(List<ChunckRoad> chuncksRoadStock, Transform lastChunckRoadTransform, Transform parent, int chuncksNumber, RoadLevel currentLevel, RoadLevel beforeTunnel)
+        public MapGeneratorDto SpawnMultipleChunckRoadRandomly(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
-                CurrentLevel = currentLevel,
-                LevelBeforeTunnel = beforeTunnel,
-                LastChunckRoadInstantiated = lastChunckRoadTransform
+                CurrentLevel = currentMapGeneratorDto.CurrentLevel,
+                LevelBeforeTunnel = currentMapGeneratorDto.LevelBeforeTunnel,
+                LastChunckRoadInstantiated = currentMapGeneratorDto.LastChunckRoadInstantiated
             };
 
             for (int i = 0; i < chuncksNumber; i++)
             {
-                mapGeneratorDto = SpawnRandomChunckRoad(chuncksRoadStock, mapGeneratorDto.LastChunckRoadInstantiated, parent, mapGeneratorDto.CurrentLevel, mapGeneratorDto.LevelBeforeTunnel);
+                mapGeneratorDto = SpawnRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
+                ActivateSpawnCheckpoint(chuncksNumber, i, mapGeneratorDto.LastChunckRoadInstantiated);
             }
 
             return mapGeneratorDto;
@@ -72,13 +73,13 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform lastChunckRoadTransform, Transform parent, RoadLevel currentLevel, RoadLevel beforeTunnel)
+        public MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
-                CurrentLevel = currentLevel,
-                LevelBeforeTunnel = beforeTunnel,
-                LastChunckRoadInstantiated = lastChunckRoadTransform
+                CurrentLevel = currentMapGeneratorDto.CurrentLevel,
+                LevelBeforeTunnel = currentMapGeneratorDto.LevelBeforeTunnel,
+                LastChunckRoadInstantiated = currentMapGeneratorDto.LastChunckRoadInstantiated
             };
 
             ChunckRoad chunckRoadToSpawn = GetRandomChunckRoadModel(chuncksRoadStock, mapGeneratorDto.CurrentLevel, mapGeneratorDto.LevelBeforeTunnel);
@@ -108,6 +109,15 @@ namespace Assets.Sources.Business.Implementation
             mapGeneratorDto.LastChunckRoadInstantiated = newChunckRoad.transform;
 
             return mapGeneratorDto;
+        }
+
+        private void ActivateSpawnCheckpoint(int maxChunckRoadSpawning, int chunckRoadSpawningIndex, Transform chunckRoadSpawningTransform)
+        {
+            if (chunckRoadSpawningIndex == maxChunckRoadSpawning - RangeValueReference.CHUNCK_ROAD_BEFORE_END_INDEX_SPAWNER)
+            {
+                GameObject spawnCheckpoint = chunckRoadSpawningTransform.Find(GameObjectNameReference.CHUNCK_ROAD_SPAWN_CHECKPOINT).gameObject;
+                spawnCheckpoint.SetActive(true);
+            }
         }
     }
 }
