@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3355400}
   - component: {fileID: 2311578}
   - component: {fileID: 6405706}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Highway Bridge 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

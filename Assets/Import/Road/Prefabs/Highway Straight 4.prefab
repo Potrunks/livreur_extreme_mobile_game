@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3339026}
   - component: {fileID: 2360132}
   - component: {fileID: 6411066}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Highway Straight 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
