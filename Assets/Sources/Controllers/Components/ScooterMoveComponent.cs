@@ -55,7 +55,7 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (context.performed && _scooterRigidbody.velocity.y <= 0.1f && _scooterRigidbody.velocity.y >= -0.1f && _isGrounding)
         {
             _currentState.OnPlayerInput(ScooterAction.JUMP);
         }
