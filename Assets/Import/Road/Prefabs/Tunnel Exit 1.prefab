@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3347124}
   - component: {fileID: 2351856}
   - component: {fileID: 6488580}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tunnel Exit 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

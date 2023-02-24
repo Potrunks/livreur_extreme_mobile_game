@@ -12,15 +12,17 @@ public class CameraFollowComponent : MonoBehaviour
 
     [Header("Parameters")]
     [SerializeField]
-    private Vector3 _offset;
-    [SerializeField]
     private List<CameraFollowMode> _modeList;
+
+    private Vector3 _offset;
 
     private ICameraBusiness _cameraBusiness;
 
     private void Awake()
     {
         _cameraBusiness = new CameraBusiness();
+
+        _offset = _cameraBusiness.CalculateOffsetDistance(transform.position, _target.position);
     }
 
     private void FixedUpdate()

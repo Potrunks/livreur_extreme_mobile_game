@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3368792}
   - component: {fileID: 2392730}
   - component: {fileID: 6449406}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Freeway Join Freeway 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}

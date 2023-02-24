@@ -437,10 +437,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14273abe76931674d8ca4cb137daa0d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _target: {fileID: 1382343344}
-  _offset: {x: 0, y: 0, z: -4}
-  _modeList: 00000000
---- !u!4 &1382343344 stripped
+  _target: {fileID: 1382343349}
+  _modeList: 0000000002000000
+--- !u!4 &1382343349 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7370927559518335017, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
   m_PrefabInstance: {fileID: 319937347}
@@ -492,7 +491,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _firstChunckRoadTransform: {fileID: 844410087}
   _firstLevel: 0
-  _chuncksNumber: 10
+  _chuncksNumber: 100
   _chuncksRoad:
   - {fileID: 11400000, guid: 6674189f24a0f9a4d86a490249406410, type: 2}
   - {fileID: 11400000, guid: dce14bdc62b350349a13fc148aa2c291, type: 2}

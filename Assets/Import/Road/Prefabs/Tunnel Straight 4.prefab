@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3351682}
   - component: {fileID: 2327432}
   - component: {fileID: 6432266}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Tunnel Straight 4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
