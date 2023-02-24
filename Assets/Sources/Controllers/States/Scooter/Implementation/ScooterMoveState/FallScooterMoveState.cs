@@ -37,6 +37,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnExit(ScooterMoveComponent component)
         {
+            component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)

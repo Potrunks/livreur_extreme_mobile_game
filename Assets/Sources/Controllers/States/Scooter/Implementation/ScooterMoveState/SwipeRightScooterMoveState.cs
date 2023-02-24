@@ -46,6 +46,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
             {
                 component._currentColumn = RoadColumnPosition.RIGHT;
             }
+
+            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY);
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
