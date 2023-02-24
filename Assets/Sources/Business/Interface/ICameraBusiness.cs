@@ -6,6 +6,8 @@ namespace Assets.Sources.Business.Interface
 {
     public interface ICameraBusiness
     {
-        Vector3 FollowTarget(Vector3 follower, Vector3 target, Vector3 offset, List<CameraFollowMode> modeList);
+        Vector3 FollowTarget(Vector3 cameraPosition, Vector3 targetPosition, Vector3 offset, List<CameraFollowMode> followModes);
+
+        Vector3 CalculateOffsetDistance(Vector3 cameraPosition, Vector3 targetPosition);
     }
 }

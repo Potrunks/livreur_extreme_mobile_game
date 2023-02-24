@@ -37,7 +37,6 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnExit(ScooterMoveComponent component)
         {
-            
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)

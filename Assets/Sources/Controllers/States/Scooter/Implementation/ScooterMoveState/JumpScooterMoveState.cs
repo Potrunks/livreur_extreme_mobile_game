@@ -32,6 +32,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
+            component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
             component._scooterRigidbody.AddForce(Vector3.up * component._scooterParameters.JumpForce);
             component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
         }

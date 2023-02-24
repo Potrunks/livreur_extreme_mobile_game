@@ -32,7 +32,11 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY);
+            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY)
+                               .OnComplete(() =>
+                               {
+                                   component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+                               });
         }
 
         public override void OnExit(ScooterMoveComponent component)
@@ -54,6 +58,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnUpdate(ScooterMoveComponent component)
         {
+            
         }
     }
 }

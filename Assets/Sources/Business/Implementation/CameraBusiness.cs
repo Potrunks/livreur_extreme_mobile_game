@@ -7,13 +7,23 @@ namespace Assets.Sources.Business.Implementation
 {
     public class CameraBusiness : ICameraBusiness
     {
-        public Vector3 FollowTarget(Vector3 follower, Vector3 target, Vector3 offset, List<CameraFollowMode> modeList)
+        public Vector3 CalculateOffsetDistance(Vector3 cameraPosition, Vector3 targetPosition)
         {
             return new Vector3
             {
-                x = (modeList.Contains(CameraFollowMode.X_POSITION) ? target.x : follower.x) + offset.x,
-                y = (modeList.Contains(CameraFollowMode.Y_POSITION) ? target.y : follower.y) + offset.y,
-                z = (modeList.Contains(CameraFollowMode.Z_POSITION) ? target.z : follower.z) + offset.z,
+                x = cameraPosition.x - targetPosition.x,
+                y = cameraPosition.y - targetPosition.y,
+                z = cameraPosition.z - targetPosition.z
+            };
+        }
+
+        public Vector3 FollowTarget(Vector3 cameraPosition, Vector3 targetPosition, Vector3 offset, List<CameraFollowMode> followModes)
+        {
+            return new Vector3
+            {
+                x = followModes.Contains(CameraFollowMode.X_POSITION) ? targetPosition.x + offset.x : cameraPosition.x,
+                y = followModes.Contains(CameraFollowMode.Y_POSITION) ? targetPosition.y+ offset.y : cameraPosition.y,
+                z = followModes.Contains(CameraFollowMode.Z_POSITION) ? targetPosition.z + offset.z : cameraPosition.z,
             };
         }
     }

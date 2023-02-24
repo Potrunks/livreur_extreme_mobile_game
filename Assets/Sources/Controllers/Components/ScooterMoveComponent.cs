@@ -11,9 +11,6 @@ public class ScooterMoveComponent : MoveComponent
     [Header("Entity")]
     public Scooter _scooterParameters;
 
-    [Header("Required Component")]
-    public Rigidbody _scooterRigidbody;
-
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
     private IScooterBusiness _scooterBusiness;
