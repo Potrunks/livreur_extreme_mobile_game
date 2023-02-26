@@ -16,7 +16,7 @@ public class ScooterMoveComponent : MoveComponent
 
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
-    public IScooterBusiness _scooterBusiness;
+    private IScooterBusiness _scooterBusiness;
 
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
@@ -30,11 +30,6 @@ public class ScooterMoveComponent : MoveComponent
 
     private void Update()
     {
-        _currentState.OnUpdate(this);
-    }
-
-    private void LateUpdate()
-    {
         _nextState = _currentState.CheckStateChange(this);
         if (_nextState != null)
         {
@@ -42,6 +37,11 @@ public class ScooterMoveComponent : MoveComponent
             _currentState = _nextState;
             _currentState.OnEnter(this);
         }
+    }
+
+    private void LateUpdate()
+    {
+        _currentState.OnUpdate(this);
     }
 
     private void FixedUpdate()
@@ -57,10 +57,7 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
-        if (_isGrounding)
-        {
-            _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
-        }
+        _scooterBusiness.DoSwipe(context.ReadValue<Vector2>(), _currentColumn, _currentState);
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)

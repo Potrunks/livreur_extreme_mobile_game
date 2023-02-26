@@ -6,6 +6,6 @@ namespace Assets.Sources.Business.Interface
 {
     public interface IScooterBusiness
     {
-        void DoSwipe(float swipeXDirection, RoadColumnPosition currentColumn, IScooterMoveState currentState);
+        void DoSwipe(Vector2 swipeInput, RoadColumnPosition currentColumn, IScooterMoveState currentState);
     }
 }

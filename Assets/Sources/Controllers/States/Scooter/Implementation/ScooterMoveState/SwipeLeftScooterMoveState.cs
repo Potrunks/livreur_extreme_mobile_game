@@ -65,6 +65,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnUpdate(ScooterMoveComponent component)
         {
+
         }
     }
 }

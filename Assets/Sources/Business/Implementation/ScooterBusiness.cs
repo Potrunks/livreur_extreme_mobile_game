@@ -8,9 +8,9 @@ namespace Assets.Sources.Business.Implementation
 {
     public class ScooterBusiness : IScooterBusiness
     {
-        public void DoSwipe(float swipeXDirection, RoadColumnPosition currentColumn, IScooterMoveState currentState)
+        public void DoSwipe(Vector2 swipeInput, RoadColumnPosition currentColumn, IScooterMoveState currentState)
         {
-            switch (swipeXDirection)
+            switch (swipeInput.x)
             {
                 case > 0:
                     if (currentColumn != RoadColumnPosition.RIGHT)
