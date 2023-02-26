@@ -131,9 +131,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 7370927559518335012, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
-      propertyPath: _scooterParameters
+      propertyPath: _centerMass
       value: 
-      objectReference: {fileID: 11400000, guid: f6d0deec79eea814cb1b4a34eba09456, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: 7370927559518335014, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
       propertyPath: m_Name
       value: Scooter
@@ -181,6 +181,10 @@ PrefabInstance:
     - target: {fileID: 7370927559518335017, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7753341343714467579, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
+      propertyPath: _radius
+      value: 0.25
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}

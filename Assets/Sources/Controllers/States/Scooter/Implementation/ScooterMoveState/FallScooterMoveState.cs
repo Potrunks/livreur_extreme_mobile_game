@@ -32,16 +32,17 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_FALL, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_FALL);
+            
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
+            
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
+            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
             component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
         }
 

@@ -11,9 +11,12 @@ public class ScooterMoveComponent : MoveComponent
     [Header("Entity")]
     public Scooter _scooterParameters;
 
+    [Header("Required Component")]
+    public Rigidbody _scooterRigidbody;
+
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
-    private IScooterBusiness _scooterBusiness;
+    public IScooterBusiness _scooterBusiness;
 
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
@@ -27,14 +30,18 @@ public class ScooterMoveComponent : MoveComponent
 
     private void Update()
     {
+        _currentState.OnUpdate(this);
+    }
+
+    private void LateUpdate()
+    {
         _nextState = _currentState.CheckStateChange(this);
-        if (_nextState != null )
+        if (_nextState != null)
         {
             _currentState.OnExit(this);
             _currentState = _nextState;
             _currentState.OnEnter(this);
         }
-        _currentState.OnUpdate(this);
     }
 
     private void FixedUpdate()
@@ -50,12 +57,15 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
-        _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
+        if (_isGrounding)
+        {
+            _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
+        }
     }
 
     public void OnJumpInput(InputAction.CallbackContext context)
     {
-        if (context.performed && _scooterRigidbody.velocity.y <= 0.1f && _scooterRigidbody.velocity.y >= -0.1f && _isGrounding)
+        if (context.performed && _isGrounding)
         {
             _currentState.OnPlayerInput(ScooterAction.JUMP);
         }
