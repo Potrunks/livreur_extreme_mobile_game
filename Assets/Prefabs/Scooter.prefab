@@ -65,7 +65,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isGrounding: 0
-  _scooterParameters: {fileID: 0}
+  _scooterParameters: {fileID: 11400000, guid: f6d0deec79eea814cb1b4a34eba09456, type: 2}
   _scooterRigidbody: {fileID: 7370927559518335013}
   _currentColumn: 0
 --- !u!114 &7370927559518335015
@@ -249,7 +249,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 996330500988365251, guid: b0dd27d11eba0a0498ae705c3fe42710, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.858
+      value: -0.306
       objectReference: {fileID: 0}
     - target: {fileID: 996330500988365251, guid: b0dd27d11eba0a0498ae705c3fe42710, type: 3}
       propertyPath: m_LocalRotation.w
@@ -281,7 +281,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 996330500988365276, guid: b0dd27d11eba0a0498ae705c3fe42710, type: 3}
       propertyPath: _radius
-      value: 0.3
+      value: 0.21
       objectReference: {fileID: 0}
     - target: {fileID: 996330500988365276, guid: b0dd27d11eba0a0498ae705c3fe42710, type: 3}
       propertyPath: _moveComponent

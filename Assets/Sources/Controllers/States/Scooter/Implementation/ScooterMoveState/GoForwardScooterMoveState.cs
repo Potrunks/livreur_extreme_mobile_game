@@ -32,20 +32,27 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY)
-                               .OnComplete(() =>
-                               {
-                                   component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotationZ | RigidbodyConstraints.FreezeRotationY;
-                               });
+            
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
+
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
             component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
+
+            if (component.transform.eulerAngles.x < 180 && component.transform.eulerAngles.x > 25)
+            {
+                component._scooterRigidbody.angularVelocity = new Vector3(-0.5f, 0, 0);
+            }
+
+            if (component.transform.eulerAngles.x > 180 && component.transform.eulerAngles.x < 335)
+            {
+                component._scooterRigidbody.angularVelocity = new Vector3(0.5f, 0, 0);
+            }
         }
 
         public override void OnPlayerInput(ScooterAction action)
