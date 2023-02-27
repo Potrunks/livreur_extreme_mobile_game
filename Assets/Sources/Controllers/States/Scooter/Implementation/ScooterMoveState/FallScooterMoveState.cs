@@ -42,7 +42,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
+            component.transform.DORotate(new Vector3(PhysicValuesReference.JUMP_X_ROTATION, 0, 0), PhysicValuesReference.JUMP_X_ROTATION_DURATION);
             component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
         }
 

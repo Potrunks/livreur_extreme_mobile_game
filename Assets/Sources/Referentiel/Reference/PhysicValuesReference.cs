@@ -4,18 +4,16 @@ namespace Assets.Sources.Referentiel.Reference
 {
     public static class PhysicValuesReference
     {
-        public static float VELOCITY_Y_LOW_THRESHOLD = -0.1f;
+        public static float LEFT_COLUMN_X_POSITION = -8.75f;
+        public static float RIGHT_COLUMN_X_POSITION = -3.75f;
+        public static float MIDDLE_COLUMN_X_POSITION = -6.25f;
+        public static float JUMP_LIMIT_Y_POSITION = 7;
 
-        public static float TRANSFORM_X_LEFT_COLUMN = -8.75f;
-        public static float TRANSFORM_X_RIGHT_COLUMN = -3.75f;
-        public static float TRANSFORM_X_MIDDLE_COLUMN = -6.25f;
-
-        public static int ANGLE_Z_ROTATION_LEFT = 10;
-        public static int ANGLE_Z_ROTATION_RIGHT = -10;
-        public static int ANGLE_X_ROTATION_JUMP = -20;
-
-        public static float ANGLE_Z_ROTATION_TIME_SWIPE = 0.25f;
-        public static float ANGLE_X_ROTATION_TIME_JUMP = 0.1f;
-        public static float ROTATION_TIME_RECOVERY = 0.1f;
+        public static int SWIPE_LEFT_Z_ROTATION = 10;
+        public static int SWIPE_RIGHT_Z_ROTATION = -10;
+        public static int JUMP_X_ROTATION = -20;
+        public static float SWIPE_Z_ROTATION_DURATION = 0.25f;
+        public static float JUMP_X_ROTATION_DURATION = 0.1f;
+        public static float UPRIGHT_Z_ROTATION_DURATION = 0.1f;
     }
 }

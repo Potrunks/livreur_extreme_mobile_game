@@ -16,10 +16,12 @@ public class ScooterMoveComponent : MoveComponent
 
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
-    private IScooterBusiness _scooterBusiness;
+    public IScooterBusiness _scooterBusiness;
 
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
+    [HideInInspector]
+    public float _yPositionJumpLimit;
 
     private void Awake()
     {
@@ -58,13 +60,5 @@ public class ScooterMoveComponent : MoveComponent
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
         _scooterBusiness.DoSwipe(context.ReadValue<Vector2>(), _currentColumn, _currentState);
-    }
-
-    public void OnJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.performed && _isGrounding)
-        {
-            _currentState.OnPlayerInput(ScooterAction.JUMP);
-        }
     }
 }

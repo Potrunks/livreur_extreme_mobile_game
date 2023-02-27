@@ -22,8 +22,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= PhysicValuesReference.TRANSFORM_X_LEFT_COLUMN)
-                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= PhysicValuesReference.TRANSFORM_X_MIDDLE_COLUMN))
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= PhysicValuesReference.LEFT_COLUMN_X_POSITION)
+                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= PhysicValuesReference.MIDDLE_COLUMN_X_POSITION))
             {
                 return new GoForwardScooterMoveState();
             }
@@ -33,26 +33,18 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(0, 0, PhysicValuesReference.ANGLE_Z_ROTATION_LEFT), PhysicValuesReference.ANGLE_Z_ROTATION_TIME_SWIPE);
+            component.transform.DORotate(new Vector3(0, 0, PhysicValuesReference.SWIPE_LEFT_Z_ROTATION), PhysicValuesReference.SWIPE_Z_ROTATION_DURATION);
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
-            if (component._currentColumn == RoadColumnPosition.MIDDLE)
-            {
-                component._currentColumn = RoadColumnPosition.LEFT;
-            }
-            else if (component._currentColumn == RoadColumnPosition.RIGHT)
-            {
-                component._currentColumn = RoadColumnPosition.MIDDLE;
-            }
-
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY);
+            component._currentColumn = component._scooterBusiness.GetNewCurrentRoadColumnPosition(component._currentColumn, false);
+            component.transform.DORotate(Vector3.zero, PhysicValuesReference.UPRIGHT_Z_ROTATION_DURATION);
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(-1 * component._scooterParameters.DodgeSpeed, 0, 1) * Time.deltaTime * component._scooterParameters.Speed));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(-1 * component._scooterParameters.DodgeSpeed, 0, component._scooterParameters.Speed) * Time.deltaTime));
         }
 
         public override void OnPlayerInput(ScooterAction action)
