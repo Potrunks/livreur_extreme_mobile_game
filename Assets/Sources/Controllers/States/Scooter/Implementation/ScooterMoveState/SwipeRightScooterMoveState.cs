@@ -33,13 +33,13 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(0, 0, PhysicValuesReference.SWIPE_RIGHT_Z_ROTATION), PhysicValuesReference.SWIPE_Z_ROTATION_DURATION);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), PhysicValuesReference.SWIPE_RIGHT_Z_ROTATION), PhysicValuesReference.SWIPE_Z_ROTATION_DURATION);
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
             component._currentColumn = component._scooterBusiness.GetNewCurrentRoadColumnPosition(component._currentColumn, true);
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.UPRIGHT_Z_ROTATION_DURATION);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), 0), PhysicValuesReference.UPRIGHT_Z_ROTATION_DURATION);
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)

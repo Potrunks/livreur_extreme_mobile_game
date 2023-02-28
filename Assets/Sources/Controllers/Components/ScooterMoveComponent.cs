@@ -59,6 +59,6 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
-        _scooterBusiness.DoSwipe(context.ReadValue<Vector2>(), _currentColumn, _currentState);
+        _scooterBusiness.DoSwipe(context.ReadValue<Vector2>(), _currentColumn, _currentState, _isGrounding);
     }
 }
