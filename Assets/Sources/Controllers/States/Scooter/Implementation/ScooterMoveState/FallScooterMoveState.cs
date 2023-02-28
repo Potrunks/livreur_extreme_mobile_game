@@ -42,7 +42,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(0, PhysicValuesReference.FALL_Y_DIRECTION, component._scooterParameters.Speed) * Time.deltaTime));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(0, component._scooterParameters.FallSpeed * -1, component._scooterParameters.MoveSpeed) * Time.deltaTime));
         }
 
         public override void OnPlayerInput(ScooterAction action)
