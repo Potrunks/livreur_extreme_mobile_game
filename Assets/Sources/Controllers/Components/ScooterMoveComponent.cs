@@ -14,6 +14,26 @@ public class ScooterMoveComponent : MoveComponent
     [Header("Required Component")]
     public Rigidbody _scooterRigidbody;
 
+    [Header("Parameters")]
+    [Header("Column Position")]
+    public float _leftColumnXPosition = -8.75f;
+    public float _rightColumnXPosition = -3.75f;
+    public float _middleColumnXPosition = -6.25f;
+
+    [Header("Jump")]
+    public float _jumpLimitYPosition = 7;
+    public float _jumpXRotation = -20;
+    [Tooltip("Duration in second")]
+    public float _jumpRotationDuration = 0.1f;
+
+    [Header("Swipe")]
+    public float _swipeLeftZRotation = 10;
+    public float _swipeRightZRotation = -10;
+    [Tooltip("Duration in second")]
+    public float _swipeRotationDuration = 0.25f;
+    [Tooltip("Duration in second")]
+    public float _swipeRotationRecoveryDuration = 0.1f;
+
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
     public IScooterBusiness _scooterBusiness;
@@ -21,7 +41,7 @@ public class ScooterMoveComponent : MoveComponent
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
     [HideInInspector]
-    public float _yPositionJumpLimit;
+    public float _currentJumpLimitYPosition;
 
     private void Awake()
     {

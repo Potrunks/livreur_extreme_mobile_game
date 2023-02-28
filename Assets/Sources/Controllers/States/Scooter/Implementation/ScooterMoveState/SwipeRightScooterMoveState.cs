@@ -22,8 +22,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x >= PhysicValuesReference.RIGHT_COLUMN_X_POSITION)
-                || (component._currentColumn == RoadColumnPosition.LEFT && component.transform.position.x >= PhysicValuesReference.MIDDLE_COLUMN_X_POSITION))
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x >= component._rightColumnXPosition)
+                || (component._currentColumn == RoadColumnPosition.LEFT && component.transform.position.x >= component._middleColumnXPosition))
             {
                 return new GoForwardScooterMoveState();
             }
@@ -33,13 +33,13 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), PhysicValuesReference.SWIPE_RIGHT_Z_ROTATION), PhysicValuesReference.SWIPE_Z_ROTATION_DURATION);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), component._swipeRightZRotation), component._swipeRotationDuration);
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
             component._currentColumn = component._scooterBusiness.GetNewCurrentRoadColumnPosition(component._currentColumn, true);
-            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), 0), PhysicValuesReference.UPRIGHT_Z_ROTATION_DURATION);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), 0), component._swipeRotationRecoveryDuration);
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)

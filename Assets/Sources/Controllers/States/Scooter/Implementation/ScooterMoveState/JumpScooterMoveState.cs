@@ -22,7 +22,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if (component.transform.position.y >= component._yPositionJumpLimit)
+            if (component.transform.position.y >= component._currentJumpLimitYPosition)
             {
                 return new FallScooterMoveState();
             }
@@ -32,11 +32,11 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component._yPositionJumpLimit = component.transform.position.y + PhysicValuesReference.JUMP_LIMIT_Y_POSITION;
+            component._currentJumpLimitYPosition = component.transform.position.y + component._jumpLimitYPosition;
             component._scooterRigidbody.useGravity = false;
             component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
 
-            component.transform.DORotate(new Vector3(PhysicValuesReference.JUMP_X_ROTATION, 0, 0), PhysicValuesReference.JUMP_X_ROTATION_DURATION);
+            component.transform.DORotate(new Vector3(component._jumpXRotation, 0, 0), component._jumpRotationDuration);
         }
 
         public override void OnExit(ScooterMoveComponent component)
