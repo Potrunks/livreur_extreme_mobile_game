@@ -24,7 +24,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
             if (component.transform.position.y >= component._yPositionJumpLimit)
             {
-                Debug.Log("Fall State");
+                return new FallScooterMoveState();
             }
 
             return null;
