@@ -2,6 +2,7 @@
 using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
+using Assets.Sources.Referentiel.Reference;
 using UnityEngine;
 
 namespace Assets.Sources.Business.Implementation
@@ -10,7 +11,7 @@ namespace Assets.Sources.Business.Implementation
     {
         public void DoSwipe(Vector2 swipeInput, RoadColumnPosition currentColumn, IScooterMoveState currentState, bool isScooterGrounding)
         {
-            if (swipeInput.y > 0)
+            if (swipeInput.y > RangeValueReference.Y_DELTA_SWIPE_THRESHOLD)
             {
                 if (isScooterGrounding)
                 {
@@ -23,30 +24,27 @@ namespace Assets.Sources.Business.Implementation
             }
             else
             {
-                switch (swipeInput.x)
+                if (swipeInput.x > RangeValueReference.X_DELTA_SWIPE_RIGHT_THRESHOLD)
                 {
-                    case > 0:
-                        if (currentColumn != RoadColumnPosition.RIGHT)
-                        {
-                            currentState.OnPlayerInput(ScooterAction.SWIPE_RIGHT);
-                        }
-                        else
-                        {
-                            Debug.LogWarning(string.Format(StateMessages.COLUMN_CONSTRAINT_ACTION, ScooterAction.SWIPE_RIGHT, currentColumn));
-                        }
-                        break;
-                    case < 0:
-                        if (currentColumn != RoadColumnPosition.LEFT)
-                        {
-                            currentState.OnPlayerInput(ScooterAction.SWIPE_LEFT);
-                        }
-                        else
-                        {
-                            Debug.LogWarning(string.Format(StateMessages.COLUMN_CONSTRAINT_ACTION, ScooterAction.SWIPE_LEFT, currentColumn));
-                        }
-                        break;
-                    default:
-                        break;
+                    if (currentColumn != RoadColumnPosition.RIGHT)
+                    {
+                        currentState.OnPlayerInput(ScooterAction.SWIPE_RIGHT);
+                    }
+                    else
+                    {
+                        Debug.LogWarning(string.Format(StateMessages.COLUMN_CONSTRAINT_ACTION, ScooterAction.SWIPE_RIGHT, currentColumn));
+                    }
+                }
+                else if (swipeInput.x < RangeValueReference.X_DELTA_SWIPE_LEFT_THRESHOLD)
+                {
+                    if (currentColumn != RoadColumnPosition.LEFT)
+                    {
+                        currentState.OnPlayerInput(ScooterAction.SWIPE_LEFT);
+                    }
+                    else
+                    {
+                        Debug.LogWarning(string.Format(StateMessages.COLUMN_CONSTRAINT_ACTION, ScooterAction.SWIPE_LEFT, currentColumn));
+                    }
                 }
             }
         }
