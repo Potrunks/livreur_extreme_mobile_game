@@ -2,7 +2,6 @@
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
 using Assets.Sources.Referentiel.Reference;
-using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -37,13 +36,13 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnExit(ScooterMoveComponent component)
         {
-            
+            component._scooterRigidbody.useGravity = true;
+            component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotationY | RigidbodyConstraints.FreezeRotationZ;
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
-            component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(0, component._scooterParameters.FallSpeed * -1, component._scooterParameters.MoveSpeed) * Time.deltaTime));
         }
 
         public override void OnPlayerInput(ScooterAction action)

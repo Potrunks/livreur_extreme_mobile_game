@@ -1,6 +1,7 @@
 ﻿using Assets.Sources.Business.Interface;
 using Assets.Sources.Entities;
 using Assets.Sources.Referentiel.Enum;
+using Assets.Sources.Referentiel.Messages;
 using Assets.Sources.Referentiel.Reference;
 using System.Collections.Generic;
 using System.Linq;
@@ -69,6 +70,7 @@ namespace Assets.Sources.Business.Implementation
                 case RoadLevel.GO_GROUND:
                     return new List<RoadLevel> { RoadLevel.GROUND };
                 default:
+                    Debug.LogError(string.Format(ErrorMessages.ROAD_LEVEL_NOT_FOUND, currentLevel));
                     return null;
             }
         }

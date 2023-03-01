@@ -14,12 +14,34 @@ public class ScooterMoveComponent : MoveComponent
     [Header("Required Component")]
     public Rigidbody _scooterRigidbody;
 
+    [Header("Parameters")]
+    [Header("Column Position")]
+    public float _leftColumnXPosition = -8.75f;
+    public float _rightColumnXPosition = -3.75f;
+    public float _middleColumnXPosition = -6.25f;
+
+    [Header("Jump")]
+    public float _jumpLimitYPosition = 7;
+    public float _jumpXRotation = -20;
+    [Tooltip("Duration in second")]
+    public float _jumpRotationDuration = 0.1f;
+
+    [Header("Swipe")]
+    public float _swipeLeftZRotation = 10;
+    public float _swipeRightZRotation = -10;
+    [Tooltip("Duration in second")]
+    public float _swipeRotationDuration = 0.25f;
+    [Tooltip("Duration in second")]
+    public float _swipeRotationRecoveryDuration = 0.1f;
+
     private IScooterMoveState _currentState;
     private IScooterMoveState _nextState;
     public IScooterBusiness _scooterBusiness;
 
     [HideInInspector]
     public RoadColumnPosition _currentColumn;
+    [HideInInspector]
+    public float _currentJumpLimitYPosition;
 
     private void Awake()
     {
@@ -30,11 +52,6 @@ public class ScooterMoveComponent : MoveComponent
 
     private void Update()
     {
-        _currentState.OnUpdate(this);
-    }
-
-    private void LateUpdate()
-    {
         _nextState = _currentState.CheckStateChange(this);
         if (_nextState != null)
         {
@@ -42,6 +59,11 @@ public class ScooterMoveComponent : MoveComponent
             _currentState = _nextState;
             _currentState.OnEnter(this);
         }
+    }
+
+    private void LateUpdate()
+    {
+        _currentState.OnUpdate(this);
     }
 
     private void FixedUpdate()
@@ -57,17 +79,6 @@ public class ScooterMoveComponent : MoveComponent
 
     public void OnSwipeInput(InputAction.CallbackContext context)
     {
-        if (_isGrounding)
-        {
-            _scooterBusiness.DoSwipe(context.ReadValue<Vector3>().x, _currentColumn, _currentState);
-        }
-    }
-
-    public void OnJumpInput(InputAction.CallbackContext context)
-    {
-        if (context.performed && _isGrounding)
-        {
-            _currentState.OnPlayerInput(ScooterAction.JUMP);
-        }
+        _scooterBusiness.DoSwipe(context.ReadValue<Vector2>(), _currentColumn, _currentState, _isGrounding);
     }
 }

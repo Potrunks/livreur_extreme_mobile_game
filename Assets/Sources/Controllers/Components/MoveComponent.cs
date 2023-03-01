@@ -2,6 +2,6 @@ using UnityEngine;
 
 public class MoveComponent : MonoBehaviour
 {
-    [Header("Runtime Values")]
+    [HideInInspector]
     public bool _isGrounding;
 }

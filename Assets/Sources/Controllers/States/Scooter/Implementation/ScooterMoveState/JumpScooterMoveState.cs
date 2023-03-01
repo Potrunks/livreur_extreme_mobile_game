@@ -22,7 +22,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if (component._scooterRigidbody.velocity.y <= PhysicValuesReference.VELOCITY_Y_LOW_THRESHOLD)
+            if (component.transform.position.y >= component._currentJumpLimitYPosition)
             {
                 return new FallScooterMoveState();
             }
@@ -32,7 +32,11 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.AddForce(Vector3.up * component._scooterParameters.JumpForce);
+            component._currentJumpLimitYPosition = component.transform.position.y + component._jumpLimitYPosition;
+            component._scooterRigidbody.useGravity = false;
+            component._scooterRigidbody.constraints = RigidbodyConstraints.FreezeRotation;
+
+            component.transform.DORotate(new Vector3(component._jumpXRotation, 0, 0), component._jumpRotationDuration);
         }
 
         public override void OnExit(ScooterMoveComponent component)
@@ -42,8 +46,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(PhysicValuesReference.ANGLE_X_ROTATION_JUMP, 0, 0), PhysicValuesReference.ANGLE_X_ROTATION_TIME_JUMP);
-            component._scooterRigidbody.MovePosition(component.transform.position + (Vector3.forward * Time.deltaTime * component._scooterParameters.Speed));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(0, component._scooterParameters.JumpSpeed, component._scooterParameters.MoveSpeed) * Time.deltaTime));
         }
 
         public override void OnPlayerInput(ScooterAction action)

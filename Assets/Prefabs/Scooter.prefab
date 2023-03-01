@@ -68,6 +68,7 @@ MonoBehaviour:
   _scooterParameters: {fileID: 11400000, guid: f6d0deec79eea814cb1b4a34eba09456, type: 2}
   _scooterRigidbody: {fileID: 7370927559518335013}
   _currentColumn: 0
+  _yPositionJumpLimit: 0
 --- !u!114 &7370927559518335015
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,7 +81,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 93f011c55c2088a4095546be014d1501, type: 3}
+  m_Actions: {fileID: -944628639613478452, guid: 396d8ad9569d5be479d59b64b27a0ff5, type: 3}
   m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
@@ -107,24 +108,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-    m_ActionId: 31e63232-4730-480c-ae07-0edba7ea4549
-    m_ActionName: Driving/Swipe[/Keyboard/a,/Keyboard/d]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 7370927559518335012}
-        m_TargetAssemblyTypeName: ScooterMoveComponent, Assembly-CSharp
-        m_MethodName: OnJumpInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: b1604855-0afc-4427-bd08-b561ee632f79
-    m_ActionName: Driving/Jump[/Keyboard/space]
+    m_ActionId: b14c8787-5a5d-4391-8637-2039b1c1c1a7
+    m_ActionName: Driving/SwipeLeft
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Driving

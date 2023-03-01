@@ -7,11 +7,14 @@ public class Scooter : ScriptableObject
     public string Name { get; set; }
 
     [field: SerializeField]
-    public int Speed { get; set; }
+    public int MoveSpeed { get; set; }
 
     [field: SerializeField]
     public int DodgeSpeed { get; set; }
 
     [field: SerializeField]
-    public int JumpForce { get; set; }
+    public int JumpSpeed { get; set; }
+
+    [field: SerializeField]
+    public int FallSpeed { get; set; }
 }

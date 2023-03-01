@@ -1,0 +1,34 @@
+{
+    "name": "TouchInputAction",
+    "maps": [
+        {
+            "name": "Driving",
+            "id": "a347fcca-9386-43af-8c2a-b50561681060",
+            "actions": [
+                {
+                    "name": "Swipe",
+                    "type": "PassThrough",
+                    "id": "b14c8787-5a5d-4391-8637-2039b1c1c1a7",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f9c5c969-4552-4200-ba27-736cd8d4ada2",
+                    "path": "<Touchscreen>/primaryTouch/delta",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Swipe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

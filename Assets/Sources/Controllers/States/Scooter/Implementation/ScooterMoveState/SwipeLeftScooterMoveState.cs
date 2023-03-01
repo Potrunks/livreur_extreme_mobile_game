@@ -1,7 +1,7 @@
-﻿using Assets.Sources.Controllers.States.Scooter.Interface;
+﻿using Assets.Sources.Business.Tools;
+using Assets.Sources.Controllers.States.Scooter.Interface;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
-using Assets.Sources.Referentiel.Reference;
 using DG.Tweening;
 using System.Collections.Generic;
 using UnityEngine;
@@ -22,8 +22,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= PhysicValuesReference.TRANSFORM_X_LEFT_COLUMN)
-                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= PhysicValuesReference.TRANSFORM_X_MIDDLE_COLUMN))
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= component._leftColumnXPosition)
+                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= component._middleColumnXPosition))
             {
                 return new GoForwardScooterMoveState();
             }
@@ -33,26 +33,18 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnEnter(ScooterMoveComponent component)
         {
-            component.transform.DORotate(new Vector3(0, 0, PhysicValuesReference.ANGLE_Z_ROTATION_LEFT), PhysicValuesReference.ANGLE_Z_ROTATION_TIME_SWIPE);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), component._swipeLeftZRotation), component._swipeRotationDuration);
         }
 
         public override void OnExit(ScooterMoveComponent component)
         {
-            if (component._currentColumn == RoadColumnPosition.MIDDLE)
-            {
-                component._currentColumn = RoadColumnPosition.LEFT;
-            }
-            else if (component._currentColumn == RoadColumnPosition.RIGHT)
-            {
-                component._currentColumn = RoadColumnPosition.MIDDLE;
-            }
-
-            component.transform.DORotate(Vector3.zero, PhysicValuesReference.ROTATION_TIME_RECOVERY);
+            component._currentColumn = component._scooterBusiness.GetNewCurrentRoadColumnPosition(component._currentColumn, false);
+            component.transform.DORotate(new Vector3(component.transform.eulerAngles.x.To180Degrees(), component.transform.eulerAngles.y.To180Degrees(), 0), component._swipeRotationRecoveryDuration);
         }
 
         public override void OnFixedUpdate(ScooterMoveComponent component)
         {
-            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(-1 * component._scooterParameters.DodgeSpeed, 0, 1) * Time.deltaTime * component._scooterParameters.Speed));
+            component._scooterRigidbody.MovePosition(component.transform.position + (new Vector3(-1 * component._scooterParameters.DodgeSpeed, 0, component._scooterParameters.MoveSpeed) * Time.deltaTime));
         }
 
         public override void OnPlayerInput(ScooterAction action)
@@ -65,6 +57,7 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
 
         public override void OnUpdate(ScooterMoveComponent component)
         {
+
         }
     }
 }
