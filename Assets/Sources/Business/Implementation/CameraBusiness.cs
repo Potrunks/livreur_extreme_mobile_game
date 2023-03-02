@@ -22,7 +22,7 @@ namespace Assets.Sources.Business.Implementation
             return new Vector3
             {
                 x = followModes.Contains(CameraFollowMode.X_POSITION) ? targetPosition.x + offset.x : cameraPosition.x,
-                y = followModes.Contains(CameraFollowMode.Y_POSITION) ? targetPosition.y+ offset.y : cameraPosition.y,
+                y = followModes.Contains(CameraFollowMode.Y_POSITION) ? targetPosition.y + offset.y : cameraPosition.y,
                 z = followModes.Contains(CameraFollowMode.Z_POSITION) ? targetPosition.z + offset.z : cameraPosition.z,
             };
         }
