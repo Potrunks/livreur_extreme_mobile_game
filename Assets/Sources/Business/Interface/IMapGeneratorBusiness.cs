@@ -1,4 +1,5 @@
 ﻿using Assets.Sources.Entities;
+using Assets.Sources.Referentiel.Enum;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -26,5 +27,7 @@ namespace Assets.Sources.Business.Interface
         MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto);
 
         void SpawnObstaclesRandomly(List<Obstacle> obstacleAssets, List<Transform> obstacleSpawnPositions, float spawnPercentage);
+
+        List<Transform> PutSpawnObstacleZoneByRoadColumn(IDictionary<RoadColumnPosition, Transform> spawnObstacleZones, IDictionary<RoadColumnPosition, float> columnXPositions, float offsetYPositon, float offsetZPosition);
     }
 }

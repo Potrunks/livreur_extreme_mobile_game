@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4904544264568872691}
   m_Layer: 0
-  m_Name: ObstacleSpawnZone1
+  m_Name: LeftZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -24,7 +24,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1082539584774741398}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.38, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -41,7 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3945178994704317590}
   m_Layer: 0
-  m_Name: ObstacleSpawnZone3
+  m_Name: RightZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -55,7 +55,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3645855511493924180}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.13, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -72,7 +72,7 @@ GameObject:
   m_Component:
   - component: {fileID: 639545275412165381}
   m_Layer: 0
-  m_Name: ObstacleSpawnZone2
+  m_Name: MiddleZone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5181234316118772413}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -6.25, y: 0, z: -1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -140,13 +140,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1bfd565649177804aabada81d187db4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _obstacleSpawnPositions:
-  - {fileID: 4904544264568872691}
-  - {fileID: 639545275412165381}
-  - {fileID: 3945178994704317590}
+  _leftSpawnZone: {fileID: 4904544264568872691}
+  _middleSpawnZone: {fileID: 639545275412165381}
+  _rightSpawnZone: {fileID: 3945178994704317590}
   _obstacleAssets:
   - {fileID: 11400000, guid: c231283df6fa487448b9d70bc14c00b1, type: 2}
   - {fileID: 11400000, guid: 9c194598d041c1b4a8a216a2517f0702, type: 2}
   - {fileID: 11400000, guid: 02a379569291cb44da9dc412701df8c4, type: 2}
   - {fileID: 11400000, guid: 09f9ccfb5868d7a4f9a1981b7ba7a337, type: 2}
   _spawnPercentage: 80
+  _obstacleOffsetYPosition: 0
+  _obstacleOffsetZPosition: 0

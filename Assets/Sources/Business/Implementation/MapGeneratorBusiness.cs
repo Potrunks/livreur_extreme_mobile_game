@@ -1,4 +1,5 @@
 ﻿using Assets.Sources.Business.Interface;
+using Assets.Sources.Business.Tools;
 using Assets.Sources.Entities;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
@@ -140,19 +141,45 @@ namespace Assets.Sources.Business.Implementation
                     selectedSpawns.Add(selectedSpawn);
                 }
 
+                List<Obstacle> obstaclesSpawned = new List<Obstacle>();
                 foreach (Transform selectedSpawn in selectedSpawns)
                 {
                     int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, obstacleAssets.Count);
-                    Obstacle obstacle = obstacleAssets[randomIndex];
-                    GameObject.Instantiate
+                    Obstacle obstacleToSpawn = obstacleAssets[randomIndex];
+                    if (obstacleToSpawn.CanBeInstantiate(obstaclesSpawned, numberOfObstacleToSpawn))
+                    {
+                        GameObject.Instantiate
                         (
-                            obstacle.Model,
+                            obstacleToSpawn.Model,
                             selectedSpawn.position,
-                            obstacle.Model.transform.rotation,
+                            obstacleToSpawn.Model.transform.rotation,
                             selectedSpawn
                         );
+                        obstaclesSpawned.Add(obstacleToSpawn);
+                    }
+                    
                 }
             }
+        }
+
+        public List<Transform> PutSpawnObstacleZoneByRoadColumn(IDictionary<RoadColumnPosition, Transform> spawnObstacleZones, IDictionary<RoadColumnPosition, float> columnXPositions, float offsetYPositon, float offsetZPosition)
+        {
+            List<Transform> result = new List<Transform>();
+
+            foreach (KeyValuePair<RoadColumnPosition, Transform> spawnObstacleZone in spawnObstacleZones)
+            {
+                float columnXPosition = columnXPositions[spawnObstacleZone.Key];
+                Vector3 newPosition = new Vector3
+                {
+                    x = columnXPosition,
+                    y = spawnObstacleZone.Value.position.y + offsetYPositon,
+                    z = spawnObstacleZone.Value.position.z + offsetZPosition
+                };
+                spawnObstacleZone.Value.position = newPosition;
+                result.Add(spawnObstacleZone.Value);
+            }
+
+            return result;
         }
     }
 }
