@@ -109,6 +109,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 494338}
     m_Modifications:
+    - target: {fileID: 6372167562912431288, guid: f7c3523056b4ebf4188b3af1919f4f60, type: 3}
+      propertyPath: _obstacleOffsetZPosition
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 6922707720887847118, guid: f7c3523056b4ebf4188b3af1919f4f60, type: 3}
       propertyPath: m_RootOrder
       value: 3
