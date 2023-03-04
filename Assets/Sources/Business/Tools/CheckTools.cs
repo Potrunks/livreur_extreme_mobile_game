@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using Assets.Sources.Entities;
+using Assets.Sources.Referentiel.Enum;
+using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Sources.Business.Tools
@@ -12,6 +15,26 @@ namespace Assets.Sources.Business.Tools
             {
                 return true;
             }
+            return false;
+        }
+
+        public static bool CanBeInstantiate(this Obstacle obstacleToCheck, List<Obstacle> obstaclesAlreadyInstantiate, int maxSpawnSlot)
+        {
+            if (obstacleToCheck.BlockageType != ObstacleBlockageType.GROUND_AIR)
+            {
+                return true;
+            }
+
+            if (obstaclesAlreadyInstantiate.Count < maxSpawnSlot - 1)
+            {
+                return true;
+            }
+
+            if (obstaclesAlreadyInstantiate.Any(obs => obs.BlockageType != ObstacleBlockageType.GROUND_AIR))
+            {
+                return true;
+            }
+
             return false;
         }
     }
