@@ -24,5 +24,7 @@ namespace Assets.Sources.Business.Interface
         /// <param name="currentMapGeneratorDto">Hold different value about map generator.</param>
         /// <returns>Map generator Dto with all value currently used.</returns>
         MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto);
+
+        void SpawnObstaclesRandomly(List<Obstacle> obstacleAssets, List<Transform> obstacleSpawnPositions, float spawnPercentage);
     }
 }

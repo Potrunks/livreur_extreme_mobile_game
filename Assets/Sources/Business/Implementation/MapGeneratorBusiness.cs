@@ -121,5 +121,38 @@ namespace Assets.Sources.Business.Implementation
                 spawnCheckpoint.SetActive(true);
             }
         }
+
+        public void SpawnObstaclesRandomly(List<Obstacle> obstacleAssets, List<Transform> obstacleSpawnPositions, float spawnPercentage)
+        {
+            int randomPercentage = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_PERCENTAGE, RangeValueReference.MAX_RANGE_SPAWN_PERCENTAGE);
+
+            if (randomPercentage < spawnPercentage)
+            {
+                int numberOfObstacleToSpawn = Random.Range(RangeValueReference.MIN_NUMBER_OBJECT_SPAWN, obstacleSpawnPositions.Count + 1);
+                List<Transform> selectedSpawns = new List<Transform>();
+                List<Transform> allAvailableSpawns = obstacleSpawnPositions;
+
+                for (int i = 0; i < numberOfObstacleToSpawn; i++)
+                {
+                    int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, allAvailableSpawns.Count);
+                    Transform selectedSpawn = allAvailableSpawns[randomIndex];
+                    allAvailableSpawns.Remove(selectedSpawn);
+                    selectedSpawns.Add(selectedSpawn);
+                }
+
+                foreach (Transform selectedSpawn in selectedSpawns)
+                {
+                    int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, obstacleAssets.Count);
+                    Obstacle obstacle = obstacleAssets[randomIndex];
+                    GameObject.Instantiate
+                        (
+                            obstacle.Model,
+                            selectedSpawn.position,
+                            obstacle.Model.transform.rotation,
+                            selectedSpawn
+                        );
+                }
+            }
+        }
     }
 }

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Assets.Sources.Entities
 {
-    [CreateAssetMenu(menuName = "ChunckRoad/New")]
+    [CreateAssetMenu(menuName = "Road Assets/New Chunck Road")]
     public class ChunckRoad : ScriptableObject
     {
         [field: SerializeField]
