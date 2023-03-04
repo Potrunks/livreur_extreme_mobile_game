@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <Name>k__BackingField: AirGroundBarrier
   <Model>k__BackingField: {fileID: 117884, guid: b8c83c417104d75459226dd80248bfe2, type: 3}
+  <BlockageType>k__BackingField: 2
