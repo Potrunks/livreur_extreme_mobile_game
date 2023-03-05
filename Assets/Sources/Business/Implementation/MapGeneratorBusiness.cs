@@ -161,9 +161,16 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public void PutSpawnObstacleZoneByRoadColumn(IDictionary<float, Transform> spawnObstacleZonesToPrepare, float offsetYPosition, float offsetZPosition)
+        public IDictionary<float, Transform> PutSpawnObstacleZoneByRoadColumn(Transform leftSpawnZone, Transform middleSpawnZone, Transform rightSpawnZone, float offsetYPosition, float offsetZPosition)
         {
-            foreach (KeyValuePair<float, Transform> spawnObstacleZone in spawnObstacleZonesToPrepare)
+            IDictionary<float, Transform> result = new Dictionary<float, Transform>
+            {
+                { RoadMapGeneratorComponent._instance._leftColumnXPosition, leftSpawnZone },
+                { RoadMapGeneratorComponent._instance._middleColumnXPosition, middleSpawnZone },
+                { RoadMapGeneratorComponent._instance._rightColumnXPosition, rightSpawnZone }
+            };
+
+            foreach (KeyValuePair<float, Transform> spawnObstacleZone in result)
             {
                 Vector3 newPosition = new Vector3
                 {
@@ -173,6 +180,8 @@ namespace Assets.Sources.Business.Implementation
                 };
                 spawnObstacleZone.Value.position = newPosition;
             }
+
+            return result;
         }
     }
 }

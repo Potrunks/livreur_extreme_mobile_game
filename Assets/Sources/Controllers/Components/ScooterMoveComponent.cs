@@ -6,6 +6,7 @@ using Assets.Sources.Referentiel.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ScooterMoveComponent : MoveComponent
 {
     [Header("Entity")]

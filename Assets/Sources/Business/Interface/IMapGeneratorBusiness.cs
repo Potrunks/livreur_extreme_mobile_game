@@ -1,6 +1,4 @@
 ﻿using Assets.Sources.Entities;
-using Assets.Sources.Referentiel.Enum;
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -35,7 +33,6 @@ namespace Assets.Sources.Business.Interface
         /// <summary>
         /// Place the spawn obstacle zones according to the column position of the map generator component (Need to be in Start Method).
         /// </summary>
-        /// <param name="spawnObstacleZonesToPrepare">The transform of the spawn zone according to the column position of the map generator component</param>
-        void PutSpawnObstacleZoneByRoadColumn(IDictionary<float, Transform> spawnObstacleZonesToPrepare, float offsetYPosition, float offsetZPosition);
+        IDictionary<float, Transform> PutSpawnObstacleZoneByRoadColumn(Transform leftSpawnZone, Transform middleSpawnZone, Transform rightSpawnZone, float offsetYPosition, float offsetZPosition);
     }
 }
