@@ -18,8 +18,10 @@ namespace Assets.Sources.Business.Tools
             return false;
         }
 
-        public static bool CanBeInstantiate(this Obstacle obstacleToCheck, List<Obstacle> obstaclesAlreadyInstantiate, int maxSpawnSlot)
+        public static bool CanBeInstantiate(this Obstacle obstacleToCheck, IDictionary<float, Obstacle> obstaclesAlreadyInstantiate, int maxSpawnSlot)
         {
+            // TODO : Verifier si ya la place de l'instancier
+
             if (obstacleToCheck.BlockageType != ObstacleBlockageType.GROUND_AIR)
             {
                 return true;
@@ -30,7 +32,7 @@ namespace Assets.Sources.Business.Tools
                 return true;
             }
 
-            if (obstaclesAlreadyInstantiate.Any(obs => obs.BlockageType != ObstacleBlockageType.GROUND_AIR))
+            if (obstaclesAlreadyInstantiate.Values.Any(obs => obs.BlockageType != ObstacleBlockageType.GROUND_AIR))
             {
                 return true;
             }
