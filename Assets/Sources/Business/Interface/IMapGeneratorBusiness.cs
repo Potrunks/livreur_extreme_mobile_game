@@ -27,8 +27,15 @@ namespace Assets.Sources.Business.Interface
         /// <returns>Map generator Dto with all value currently used.</returns>
         MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto);
 
+        /// <summary>
+        /// Spawn obstacles randomly.
+        /// </summary>
         void SpawnObstaclesRandomly(List<Obstacle> obstacleAssets, IDictionary<float, Transform> obstacleSpawnZones, float spawnPercentage);
 
+        /// <summary>
+        /// Place the spawn obstacle zones according to the column position of the map generator component (Need to be in Start Method).
+        /// </summary>
+        /// <param name="spawnObstacleZonesToPrepare">The transform of the spawn zone according to the column position of the map generator component</param>
         void PutSpawnObstacleZoneByRoadColumn(IDictionary<float, Transform> spawnObstacleZonesToPrepare, float offsetYPosition, float offsetZPosition);
     }
 }

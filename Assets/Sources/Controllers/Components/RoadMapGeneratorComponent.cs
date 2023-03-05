@@ -54,9 +54,12 @@ public class RoadMapGeneratorComponent : MonoBehaviour
         _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
     }
 
-    public void SpawnMultipleChunckRoadRandomly(GameObject spawner)
+    /// <summary>
+    /// Spawn multiple chunck road randomly (executed from a SpawnerCheckpointComponent).
+    /// </summary>
+    public void SpawnMultipleChunckRoadRandomly(SpawnerCheckpointComponent spawner)
     {
         _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
-        spawner.SetActive(false);
+        spawner.gameObject.SetActive(false);
     }
 }

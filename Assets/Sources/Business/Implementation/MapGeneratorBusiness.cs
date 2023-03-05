@@ -146,7 +146,7 @@ namespace Assets.Sources.Business.Implementation
                 {
                     int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, obstacleAssets.Count);
                     Obstacle obstacleToSpawn = obstacleAssets[randomIndex];
-                    if (obstacleToSpawn.CanBeInstantiate(obstaclesSpawned, numberOfObstacleToSpawn))
+                    if (obstacleToSpawn.CanBeInstantiate(obstaclesSpawned, numberOfObstacleToSpawn, selectedSpawn.Key))
                     {
                         GameObject.Instantiate
                         (
@@ -156,8 +156,7 @@ namespace Assets.Sources.Business.Implementation
                             selectedSpawn.Value
                         );
                         obstaclesSpawned.Add(selectedSpawn.Key, obstacleToSpawn);
-                    }
-                    
+                    } 
                 }
             }
         }

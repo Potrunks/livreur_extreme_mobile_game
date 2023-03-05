@@ -7,7 +7,7 @@ public class SpawnerCheckpointComponent : MonoBehaviour
     {
         if (other.attachedRigidbody.gameObject.tag == GameObjectNameReference.GAMEOBJECT_TAG_PLAYER)
         {
-            RoadMapGeneratorComponent._instance.SpawnMultipleChunckRoadRandomly(gameObject);
+            RoadMapGeneratorComponent._instance.SpawnMultipleChunckRoadRandomly(this);
         }
     }
 }

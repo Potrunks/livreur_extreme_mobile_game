@@ -8,6 +8,9 @@ namespace Assets.Sources.Business.Tools
 {
     public static class CheckTools
     {
+        /// <summary>
+        /// Check if the GroundCheckComponent is grounding.
+        /// </summary>
         public static bool IsGrounding(this GroundCheckComponent groundCheckComponent)
         {
             Collider[] colliderTouch = Physics.OverlapSphere(groundCheckComponent.transform.position, groundCheckComponent._radius, groundCheckComponent._groundLayer);
@@ -18,26 +21,48 @@ namespace Assets.Sources.Business.Tools
             return false;
         }
 
-        public static bool CanBeInstantiate(this Obstacle obstacleToCheck, IDictionary<float, Obstacle> obstaclesAlreadyInstantiate, int maxSpawnSlot)
+        /// <summary>
+        /// Check if the obstacle have enough places to be instantiate and if there are already an anti ground-air obstacle instantiated.
+        /// </summary>
+        public static bool CanBeInstantiate(this Obstacle obstacleToCheck, IDictionary<float, Obstacle> obstaclesAlreadyInstantiate, int maxSpawnSlot, float spawnZoneXPositionSelected)
         {
-            // TODO : Verifier si ya la place de l'instancier
-
-            if (obstacleToCheck.BlockageType != ObstacleBlockageType.GROUND_AIR)
+            if (obstacleToCheck.BlockageType == ObstacleBlockageType.GROUND_AIR && obstaclesAlreadyInstantiate.Values.Any(obs => obs.BlockageType == ObstacleBlockageType.GROUND_AIR))
             {
-                return true;
+                return false;
             }
 
-            if (obstaclesAlreadyInstantiate.Count < maxSpawnSlot - 1)
+            IEnumerable<float> spawnZonesNeighborXPosition = GetSpawnZoneObstacleNeighborsXPosition(spawnZoneXPositionSelected, obstaclesAlreadyInstantiate.Keys);
+            foreach (float neighborXPosition in spawnZonesNeighborXPosition)
             {
-                return true;
+                BoxCollider transformToCheck = obstacleToCheck.Model.GetComponent<BoxCollider>();
+                BoxCollider transformNeighbor = obstaclesAlreadyInstantiate[neighborXPosition].Model.GetComponent<BoxCollider>();
+
+                float transformToCheckOccupedSpace = transformToCheck.size.z / 2;
+                float transformNeighborOccupedSpace = transformNeighbor.size.z / 2;
+                float availableDistance = Mathf.Abs(spawnZoneXPositionSelected - neighborXPosition);
+
+                if ((transformNeighborOccupedSpace + transformToCheckOccupedSpace) >= availableDistance)
+                {
+                    return false;
+                }
             }
 
-            if (obstaclesAlreadyInstantiate.Values.Any(obs => obs.BlockageType != ObstacleBlockageType.GROUND_AIR))
+            return true;
+        }
+
+        private static IEnumerable<float> GetSpawnZoneObstacleNeighborsXPosition(float spawnZoneXPositionSelected, IEnumerable<float> spawnZonesXPositionAlreadyUsed)
+        {
+            if (spawnZoneXPositionSelected == RoadMapGeneratorComponent._instance._leftColumnXPosition || spawnZoneXPositionSelected == RoadMapGeneratorComponent._instance._rightColumnXPosition)
             {
-                return true;
+                return spawnZonesXPositionAlreadyUsed.Where(pos => pos == RoadMapGeneratorComponent._instance._middleColumnXPosition);
             }
 
-            return false;
+            if (spawnZoneXPositionSelected == RoadMapGeneratorComponent._instance._middleColumnXPosition)
+            {
+                return spawnZonesXPositionAlreadyUsed.Where(pos => pos == RoadMapGeneratorComponent._instance._leftColumnXPosition || pos == RoadMapGeneratorComponent._instance._rightColumnXPosition);
+            }
+
+            return new List<float>();
         }
     }
 }
