@@ -8,14 +8,20 @@ using UnityEngine;
 public class RoadMapGeneratorComponent : MonoBehaviour
 {
     [Header("Parameters")]
+    [Header("Starter Chunck Road")]
     [SerializeField]
     private Transform _firstChunckRoadTransform;
     [SerializeField]
     private RoadLevel _firstLevel;
+    [Header("Generator Values")]
     [SerializeField]
     private int _chuncksNumber;
     [SerializeField]
     private List<ChunckRoad> _chuncksRoad;
+    [Header("Column Position")]
+    public float _leftColumnXPosition = -8.75f;
+    public float _rightColumnXPosition = -3.75f;
+    public float _middleColumnXPosition = -6.25f;
 
     private MapGeneratorDto _currentMapGeneratorDto;
     public static RoadMapGeneratorComponent _instance;
@@ -45,12 +51,15 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
     private void Start()
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
     }
 
-    public void SpawnMultipleChunckRoadRandomly(GameObject spawner)
+    /// <summary>
+    /// Spawn multiple chunck road randomly (executed from a SpawnerCheckpointComponent).
+    /// </summary>
+    public void SpawnMultipleChunckRoadRandomly(SpawnerCheckpointComponent spawner)
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
-        spawner.SetActive(false);
+        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        spawner.gameObject.SetActive(false);
     }
 }

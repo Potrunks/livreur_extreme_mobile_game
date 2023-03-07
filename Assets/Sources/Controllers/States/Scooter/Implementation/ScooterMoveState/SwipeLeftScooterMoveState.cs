@@ -22,8 +22,8 @@ namespace Assets.Sources.Controllers.States.Scooter.Implementation
                 return _nextState;
             }
 
-            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= component._leftColumnXPosition)
-                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= component._middleColumnXPosition))
+            if ((component._currentColumn == RoadColumnPosition.MIDDLE && component.transform.position.x <= RoadMapGeneratorComponent._instance._leftColumnXPosition)
+                || (component._currentColumn == RoadColumnPosition.RIGHT && component.transform.position.x <= RoadMapGeneratorComponent._instance._middleColumnXPosition))
             {
                 return new GoForwardScooterMoveState();
             }

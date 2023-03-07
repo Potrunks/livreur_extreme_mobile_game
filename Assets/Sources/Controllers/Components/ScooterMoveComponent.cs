@@ -6,6 +6,7 @@ using Assets.Sources.Referentiel.Enum;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+[RequireComponent(typeof(Rigidbody))]
 public class ScooterMoveComponent : MoveComponent
 {
     [Header("Entity")]
@@ -15,17 +16,11 @@ public class ScooterMoveComponent : MoveComponent
     public Rigidbody _scooterRigidbody;
 
     [Header("Parameters")]
-    [Header("Column Position")]
-    public float _leftColumnXPosition = -8.75f;
-    public float _rightColumnXPosition = -3.75f;
-    public float _middleColumnXPosition = -6.25f;
-
     [Header("Jump")]
     public float _jumpLimitYPosition = 7;
     public float _jumpXRotation = -20;
     [Tooltip("Duration in second")]
     public float _jumpRotationDuration = 0.1f;
-
     [Header("Swipe")]
     public float _swipeLeftZRotation = 10;
     public float _swipeRightZRotation = -10;

@@ -508,3 +508,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0d5fd2defb9137340a8048b789d64866, type: 2}
   - {fileID: 11400000, guid: ae4173aebe1152a459d5e9ca3b40a9ff, type: 2}
   - {fileID: 11400000, guid: ad609b5314e14fa4e95f1e89a4acaebc, type: 2}
+  _leftColumnXPosition: -8.75
+  _rightColumnXPosition: -3.75
+  _middleColumnXPosition: -6.25

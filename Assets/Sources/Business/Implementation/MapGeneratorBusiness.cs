@@ -1,4 +1,5 @@
 ﻿using Assets.Sources.Business.Interface;
+using Assets.Sources.Business.Tools;
 using Assets.Sources.Entities;
 using Assets.Sources.Referentiel.Enum;
 using Assets.Sources.Referentiel.Messages;
@@ -11,7 +12,7 @@ namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public MapGeneratorDto SpawnMultipleChunckRoadRandomly(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
+        public MapGeneratorDto InstantiateRandomChunckRoads(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
@@ -22,7 +23,7 @@ namespace Assets.Sources.Business.Implementation
 
             for (int i = 0; i < chuncksNumber; i++)
             {
-                mapGeneratorDto = SpawnRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
+                mapGeneratorDto = InstantiateRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
                 ActivateSpawnCheckpoint(chuncksNumber, i, mapGeneratorDto.LastChunckRoadInstantiated);
             }
 
@@ -75,7 +76,7 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
+        private MapGeneratorDto InstantiateRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
@@ -120,6 +121,67 @@ namespace Assets.Sources.Business.Implementation
                 GameObject spawnCheckpoint = chunckRoadSpawningTransform.Find(GameObjectNameReference.CHUNCK_ROAD_SPAWN_CHECKPOINT).gameObject;
                 spawnCheckpoint.SetActive(true);
             }
+        }
+
+        public void InstantiateRandomObstacles(List<Obstacle> obstacleAssets, IDictionary<float, Transform> obstacleSpawnZones, float spawnPercentage)
+        {
+            int randomPercentage = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_PERCENTAGE, RangeValueReference.MAX_RANGE_SPAWN_PERCENTAGE);
+
+            if (randomPercentage < spawnPercentage)
+            {
+                int numberOfObstacleToSpawn = Random.Range(RangeValueReference.MIN_NUMBER_OBJECT_SPAWN, obstacleSpawnZones.Count + 1);
+                IDictionary<float, Transform> selectedSpawnZones = new Dictionary<float, Transform>();
+                List<KeyValuePair<float, Transform>> allAvailableSpawnZones = obstacleSpawnZones.Select(kvp => kvp).ToList();
+
+                for (int i = 0; i < numberOfObstacleToSpawn; i++)
+                {
+                    int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, allAvailableSpawnZones.Count());
+                    KeyValuePair<float, Transform> spawnZoneSelected = allAvailableSpawnZones[randomIndex];
+                    allAvailableSpawnZones.Remove(spawnZoneSelected);
+                    selectedSpawnZones.Add(spawnZoneSelected);
+                }
+
+                IDictionary<float, Obstacle> obstaclesSpawned = new Dictionary<float, Obstacle>();
+                foreach (KeyValuePair<float, Transform> selectedSpawn in selectedSpawnZones)
+                {
+                    int randomIndex = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_INDEX, obstacleAssets.Count);
+                    Obstacle obstacleToSpawn = obstacleAssets[randomIndex];
+                    if (obstacleToSpawn.CanBeInstantiate(obstaclesSpawned, numberOfObstacleToSpawn, selectedSpawn.Key))
+                    {
+                        GameObject.Instantiate
+                        (
+                            obstacleToSpawn.Model,
+                            selectedSpawn.Value.position,
+                            obstacleToSpawn.Model.transform.rotation,
+                            selectedSpawn.Value
+                        );
+                        obstaclesSpawned.Add(selectedSpawn.Key, obstacleToSpawn);
+                    } 
+                }
+            }
+        }
+
+        public IDictionary<float, Transform> PositionSpawnObstacleZoneByRoadColumn(Transform leftSpawnZone, Transform middleSpawnZone, Transform rightSpawnZone, float offsetYPosition, float offsetZPosition)
+        {
+            IDictionary<float, Transform> result = new Dictionary<float, Transform>
+            {
+                { RoadMapGeneratorComponent._instance._leftColumnXPosition, leftSpawnZone },
+                { RoadMapGeneratorComponent._instance._middleColumnXPosition, middleSpawnZone },
+                { RoadMapGeneratorComponent._instance._rightColumnXPosition, rightSpawnZone }
+            };
+
+            foreach (KeyValuePair<float, Transform> spawnObstacleZone in result)
+            {
+                Vector3 newPosition = new Vector3
+                {
+                    x = spawnObstacleZone.Key,
+                    y = spawnObstacleZone.Value.position.y + offsetYPosition,
+                    z = spawnObstacleZone.Value.position.z + offsetZPosition
+                };
+                spawnObstacleZone.Value.position = newPosition;
+            }
+
+            return result;
         }
     }
 }

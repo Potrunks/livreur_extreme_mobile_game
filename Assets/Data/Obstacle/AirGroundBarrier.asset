@@ -9,11 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ac70b85223aabb643985a77457d92f18, type: 3}
-  m_Name: NormalScooter
+  m_Script: {fileID: 11500000, guid: aeb854ce29d2b4e418485688d65ced06, type: 3}
+  m_Name: AirGroundBarrier
   m_EditorClassIdentifier: 
-  <Name>k__BackingField: Normal Scooter
-  <MoveSpeed>k__BackingField: 3
-  <DodgeSpeed>k__BackingField: 6
-  <JumpSpeed>k__BackingField: 1
-  <FallSpeed>k__BackingField: 1
+  <Name>k__BackingField: AirGroundBarrier
+  <Model>k__BackingField: {fileID: 117884, guid: b8c83c417104d75459226dd80248bfe2, type: 3}
+  <BlockageType>k__BackingField: 2
