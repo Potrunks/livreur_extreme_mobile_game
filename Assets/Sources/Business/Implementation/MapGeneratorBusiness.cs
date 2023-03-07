@@ -94,6 +94,7 @@ namespace Assets.Sources.Business.Implementation
                 chunckRoadToSpawn.Model.transform.rotation,
                 parent
             );
+            currentMapGeneratorDto.ChunckRoadsInstantiated.Add(newChunckRoad);
 
             Vector3 offset = CalculateOffsetBetweenTwoChuncksRoad(mapGeneratorDto.LastChunckRoadInstantiated, newChunckRoad.transform);
             newChunckRoad.transform.position = new Vector3

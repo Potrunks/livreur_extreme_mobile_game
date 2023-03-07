@@ -10,7 +10,7 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     [Header("Parameters")]
     [Header("Starter Chunck Road")]
     [SerializeField]
-    private Transform _firstChunckRoadTransform;
+    private GameObject _firstChunckRoadPrefab;
     [SerializeField]
     private RoadLevel _firstLevel;
     [Header("Generator Values")]
@@ -44,8 +44,9 @@ public class RoadMapGeneratorComponent : MonoBehaviour
         _currentMapGeneratorDto = new MapGeneratorDto
         {
             CurrentLevel = _firstLevel,
-            LastChunckRoadInstantiated = _firstChunckRoadTransform,
-            LevelBeforeTunnel = _firstLevel
+            LastChunckRoadInstantiated = _firstChunckRoadPrefab.transform,
+            LevelBeforeTunnel = _firstLevel,
+            ChunckRoadsInstantiated = new List<GameObject> { _firstChunckRoadPrefab }
         };
     }
 
