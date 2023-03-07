@@ -12,7 +12,7 @@ namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public MapGeneratorDto SpawnMultipleChunckRoadRandomly(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
+        public MapGeneratorDto InstantiateRandomChunckRoads(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
@@ -23,7 +23,7 @@ namespace Assets.Sources.Business.Implementation
 
             for (int i = 0; i < chuncksNumber; i++)
             {
-                mapGeneratorDto = SpawnRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
+                mapGeneratorDto = InstantiateRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
                 ActivateSpawnCheckpoint(chuncksNumber, i, mapGeneratorDto.LastChunckRoadInstantiated);
             }
 
@@ -76,7 +76,7 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public MapGeneratorDto SpawnRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
+        private MapGeneratorDto InstantiateRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
         {
             MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
             {
@@ -123,7 +123,7 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public void SpawnObstaclesRandomly(List<Obstacle> obstacleAssets, IDictionary<float, Transform> obstacleSpawnZones, float spawnPercentage)
+        public void InstantiateRandomObstacles(List<Obstacle> obstacleAssets, IDictionary<float, Transform> obstacleSpawnZones, float spawnPercentage)
         {
             int randomPercentage = Random.Range(RangeValueReference.MIN_RANGE_SPAWN_PERCENTAGE, RangeValueReference.MAX_RANGE_SPAWN_PERCENTAGE);
 
@@ -161,7 +161,7 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        public IDictionary<float, Transform> PutSpawnObstacleZoneByRoadColumn(Transform leftSpawnZone, Transform middleSpawnZone, Transform rightSpawnZone, float offsetYPosition, float offsetZPosition)
+        public IDictionary<float, Transform> PositionSpawnObstacleZoneByRoadColumn(Transform leftSpawnZone, Transform middleSpawnZone, Transform rightSpawnZone, float offsetYPosition, float offsetZPosition)
         {
             IDictionary<float, Transform> result = new Dictionary<float, Transform>
             {

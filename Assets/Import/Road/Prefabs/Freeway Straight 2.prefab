@@ -110,6 +110,14 @@ PrefabInstance:
     m_TransformParent: {fileID: 494338}
     m_Modifications:
     - target: {fileID: 6372167562912431288, guid: f7c3523056b4ebf4188b3af1919f4f60, type: 3}
+      propertyPath: _spawnPercentage
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372167562912431288, guid: f7c3523056b4ebf4188b3af1919f4f60, type: 3}
+      propertyPath: _obstacleOffsetYPosition
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6372167562912431288, guid: f7c3523056b4ebf4188b3af1919f4f60, type: 3}
       propertyPath: _obstacleOffsetZPosition
       value: -1
       objectReference: {fileID: 0}

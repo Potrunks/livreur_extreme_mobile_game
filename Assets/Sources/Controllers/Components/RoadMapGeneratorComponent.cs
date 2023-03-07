@@ -51,7 +51,7 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
     private void Start()
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
     }
 
     /// <summary>
@@ -59,7 +59,7 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     /// </summary>
     public void SpawnMultipleChunckRoadRandomly(SpawnerCheckpointComponent spawner)
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.SpawnMultipleChunckRoadRandomly(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
         spawner.gameObject.SetActive(false);
     }
 }
