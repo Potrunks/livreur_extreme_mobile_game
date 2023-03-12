@@ -12,22 +12,13 @@ namespace Assets.Sources.Business.Implementation
 {
     public class MapGeneratorBusiness : IMapGeneratorBusiness
     {
-        public MapGeneratorDto InstantiateRandomChunckRoads(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, MapGeneratorDto currentMapGeneratorDto)
+        public void InstantiateRandomChunckRoads(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, GeneratedMapDataHolder generatedMapDataHolder, int numberChunckRoadBeforeEndForSpawner)
         {
-            MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
-            {
-                CurrentLevel = currentMapGeneratorDto.CurrentLevel,
-                LevelBeforeTunnel = currentMapGeneratorDto.LevelBeforeTunnel,
-                LastChunckRoadInstantiated = currentMapGeneratorDto.LastChunckRoadInstantiated
-            };
-
             for (int i = 0; i < chuncksNumber; i++)
             {
-                mapGeneratorDto = InstantiateRandomChunckRoad(chuncksRoadStock, parent, mapGeneratorDto);
-                ActivateSpawnCheckpoint(chuncksNumber, i, mapGeneratorDto.LastChunckRoadInstantiated);
+                InstantiateRandomChunckRoad(chuncksRoadStock, parent, generatedMapDataHolder);
+                ActivateSpawnCheckpoint(chuncksNumber, i, generatedMapDataHolder.LastChunckRoadInstantiated.transform, numberChunckRoadBeforeEndForSpawner);
             }
-
-            return mapGeneratorDto;
         }
 
         private Vector3 CalculateOffsetBetweenTwoChuncksRoad(Transform lastChunck, Transform newChunck)
@@ -76,27 +67,36 @@ namespace Assets.Sources.Business.Implementation
             }
         }
 
-        private MapGeneratorDto InstantiateRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, MapGeneratorDto currentMapGeneratorDto)
+        public void AddChunckRoadDestroyQueue(EndRoadCheckpointComponent endRoadCheckpoint, List<GameObject> destroyChunckRoadQueue, int numberChunckRoadsStayAfterScooter)
         {
-            MapGeneratorDto mapGeneratorDto = new MapGeneratorDto
+            if (numberChunckRoadsStayAfterScooter <= 0)
             {
-                CurrentLevel = currentMapGeneratorDto.CurrentLevel,
-                LevelBeforeTunnel = currentMapGeneratorDto.LevelBeforeTunnel,
-                LastChunckRoadInstantiated = currentMapGeneratorDto.LastChunckRoadInstantiated
-            };
+                return;
+            }
 
-            ChunckRoad chunckRoadToSpawn = GetRandomChunckRoadModel(chuncksRoadStock, mapGeneratorDto.CurrentLevel, mapGeneratorDto.LevelBeforeTunnel);
+            if (destroyChunckRoadQueue.Count == numberChunckRoadsStayAfterScooter)
+            {
+                GameObject chunckRoadToDestroy = destroyChunckRoadQueue.First();
+                destroyChunckRoadQueue.Remove(chunckRoadToDestroy);
+                GameObject.Destroy(chunckRoadToDestroy);
+            }
+            destroyChunckRoadQueue.Add(endRoadCheckpoint.transform.parent.gameObject);
+            endRoadCheckpoint._hasChunckRoadGone = true;
+        }
+
+        private void InstantiateRandomChunckRoad(List<ChunckRoad> chuncksRoadStock, Transform parent, GeneratedMapDataHolder generatedMapDataHolder)
+        {
+            ChunckRoad chunckRoadToSpawn = GetRandomChunckRoadModel(chuncksRoadStock, generatedMapDataHolder.CurrentLevel, generatedMapDataHolder.LevelBeforeTunnel);
 
             GameObject newChunckRoad = GameObject.Instantiate
             (
                 chunckRoadToSpawn.Model,
-                mapGeneratorDto.LastChunckRoadInstantiated.position,
+                generatedMapDataHolder.LastChunckRoadInstantiated.transform.position,
                 chunckRoadToSpawn.Model.transform.rotation,
                 parent
             );
-            currentMapGeneratorDto.ChunckRoadsInstantiated.Add(newChunckRoad);
 
-            Vector3 offset = CalculateOffsetBetweenTwoChuncksRoad(mapGeneratorDto.LastChunckRoadInstantiated, newChunckRoad.transform);
+            Vector3 offset = CalculateOffsetBetweenTwoChuncksRoad(generatedMapDataHolder.LastChunckRoadInstantiated.transform, newChunckRoad.transform);
             newChunckRoad.transform.position = new Vector3
                 (
                     newChunckRoad.transform.position.x + offset.x,
@@ -107,20 +107,18 @@ namespace Assets.Sources.Business.Implementation
             newChunckRoad.name = chunckRoadToSpawn.Name;
             if (chunckRoadToSpawn.RoadLevel == RoadLevel.GO_TUNNEL)
             {
-                mapGeneratorDto.LevelBeforeTunnel = mapGeneratorDto.CurrentLevel;
+                generatedMapDataHolder.LevelBeforeTunnel = generatedMapDataHolder.CurrentLevel;
             }
-            mapGeneratorDto.CurrentLevel = chunckRoadToSpawn.RoadLevel;
-            mapGeneratorDto.LastChunckRoadInstantiated = newChunckRoad.transform;
-
-            return mapGeneratorDto;
+            generatedMapDataHolder.CurrentLevel = chunckRoadToSpawn.RoadLevel;
+            generatedMapDataHolder.LastChunckRoadInstantiated = newChunckRoad;
         }
 
-        private void ActivateSpawnCheckpoint(int maxChunckRoadSpawning, int chunckRoadSpawningIndex, Transform chunckRoadSpawningTransform)
+        private void ActivateSpawnCheckpoint(int maxChunckRoadSpawning, int chunckRoadSpawningIndex, Transform chunckRoadSpawningTransform, int numberChunckRoadBeforeEndForSpawner)
         {
-            if (chunckRoadSpawningIndex == maxChunckRoadSpawning - RangeValueReference.CHUNCK_ROAD_BEFORE_END_INDEX_SPAWNER)
+            if (chunckRoadSpawningIndex == maxChunckRoadSpawning - numberChunckRoadBeforeEndForSpawner && numberChunckRoadBeforeEndForSpawner > 0)
             {
-                GameObject spawnCheckpoint = chunckRoadSpawningTransform.Find(GameObjectNameReference.CHUNCK_ROAD_SPAWN_CHECKPOINT).gameObject;
-                spawnCheckpoint.SetActive(true);
+                EndRoadCheckpointComponent endRoadCheckpointComponent = chunckRoadSpawningTransform.Find(GameObjectNameReference.CHUNCK_ROAD_SPAWN_CHECKPOINT).GetComponent<EndRoadCheckpointComponent>();
+                endRoadCheckpointComponent._isChunckRoadSpawner = true;
             }
         }
 
@@ -183,6 +181,12 @@ namespace Assets.Sources.Business.Implementation
             }
 
             return result;
+        }
+
+        public void InstantiateRandomChunckRoads(List<ChunckRoad> chuncksRoadStock, Transform parent, int chuncksNumber, GeneratedMapDataHolder generatedMapDataHolder, EndRoadCheckpointComponent spawner, int numberChunckRoadBeforeEndForSpawner)
+        {
+            InstantiateRandomChunckRoads(chuncksRoadStock, parent, chuncksNumber, generatedMapDataHolder, numberChunckRoadBeforeEndForSpawner);
+            spawner._isChunckRoadSpawner = false;
         }
     }
 }

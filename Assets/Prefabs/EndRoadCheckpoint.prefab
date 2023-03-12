@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 3512248999433999506}
   - component: {fileID: 7712000155463303569}
   m_Layer: 0
-  m_Name: SpawnCheckPoint
+  m_Name: EndRoadCheckpoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1932105142052206719
 Transform:
   m_ObjectHideFlags: 0
@@ -58,3 +58,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdfabb55f47587b4f8cd936a7fc7252e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _isChunckRoadSpawner: 0
