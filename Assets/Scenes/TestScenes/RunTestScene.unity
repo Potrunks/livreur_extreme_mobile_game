@@ -188,6 +188,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dcec3cb8e59e6a442b7d84afecf756d5, type: 3}
+--- !u!1 &558024081 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 110814, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
+  m_PrefabInstance: {fileID: 844410086}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -336,6 +341,10 @@ PrefabInstance:
     - target: {fileID: 494338, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3221058780468365012, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ea8ec36c7f9b40f4faa40bf80afec5a3, type: 3}
@@ -493,9 +502,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d662cbb42bcbce34788e2940b3796b94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _firstChunckRoadTransform: {fileID: 844410087}
+  _firstChunckRoadPrefab: {fileID: 558024081}
   _firstLevel: 0
-  _chuncksNumber: 100
+  _chuncksNumber: 10
+  _numberChunckRoadBeforeEndForSpawner: 5
+  _numberChunckRoadsStayAfterScooter: 1
+  _hasObstacleGenerated: 0
   _chuncksRoad:
   - {fileID: 11400000, guid: 6674189f24a0f9a4d86a490249406410, type: 2}
   - {fileID: 11400000, guid: dce14bdc62b350349a13fc148aa2c291, type: 2}

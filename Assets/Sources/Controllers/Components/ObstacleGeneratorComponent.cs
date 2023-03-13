@@ -32,13 +32,14 @@ public class ObstacleGeneratorComponent : MonoBehaviour
     private void Awake()
     {
         _mapGeneratorBusiness = new MapGeneratorBusiness();
-
-        // TODO : system de duplication des spawn zones nottamment pour les gros chunck road pour que ce soit aléatoire les zones
     }
 
     private void Start()
     {
-        _spawnZonesByXPosition = _mapGeneratorBusiness.PositionSpawnObstacleZoneByRoadColumn(_leftSpawnZone, _middleSpawnZone, _rightSpawnZone, _obstacleOffsetYPosition, _obstacleOffsetZPosition);
-        _mapGeneratorBusiness.InstantiateRandomObstacles(_obstacleAssets, _spawnZonesByXPosition, _spawnPercentage);
+        if (RoadMapGeneratorComponent._instance._hasObstacleGenerated)
+        {
+            _spawnZonesByXPosition = _mapGeneratorBusiness.PositionSpawnObstacleZoneByRoadColumn(_leftSpawnZone, _middleSpawnZone, _rightSpawnZone, _obstacleOffsetYPosition, _obstacleOffsetZPosition);
+            _mapGeneratorBusiness.InstantiateRandomObstacles(_obstacleAssets, _spawnZonesByXPosition, _spawnPercentage);
+        }
     }
 }

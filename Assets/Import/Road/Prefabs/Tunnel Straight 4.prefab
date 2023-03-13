@@ -225,7 +225,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4678712960482647390, guid: 338f725184da9e641b618821246de686, type: 3}
       propertyPath: m_Name
-      value: SpawnCheckPoint
+      value: EndRoadCheckpoint
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 338f725184da9e641b618821246de686, type: 3}

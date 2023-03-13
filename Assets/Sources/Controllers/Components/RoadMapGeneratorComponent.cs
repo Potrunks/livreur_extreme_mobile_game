@@ -10,12 +10,16 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     [Header("Parameters")]
     [Header("Starter Chunck Road")]
     [SerializeField]
-    private Transform _firstChunckRoadTransform;
+    private GameObject _firstChunckRoadPrefab;
     [SerializeField]
     private RoadLevel _firstLevel;
     [Header("Generator Values")]
     [SerializeField]
     private int _chuncksNumber;
+    [SerializeField]
+    private int _numberChunckRoadBeforeEndForSpawner;
+    public int _numberChunckRoadsStayAfterScooter;
+    public bool _hasObstacleGenerated;
     [SerializeField]
     private List<ChunckRoad> _chuncksRoad;
     [Header("Column Position")]
@@ -23,7 +27,7 @@ public class RoadMapGeneratorComponent : MonoBehaviour
     public float _rightColumnXPosition = -3.75f;
     public float _middleColumnXPosition = -6.25f;
 
-    private MapGeneratorDto _currentMapGeneratorDto;
+    public GeneratedMapDataHolder _generatedMapDataHolder;
     public static RoadMapGeneratorComponent _instance;
     private IMapGeneratorBusiness _mapGeneratorBusiness;
 
@@ -41,25 +45,19 @@ public class RoadMapGeneratorComponent : MonoBehaviour
 
         _mapGeneratorBusiness = new MapGeneratorBusiness();
 
-        _currentMapGeneratorDto = new MapGeneratorDto
-        {
-            CurrentLevel = _firstLevel,
-            LastChunckRoadInstantiated = _firstChunckRoadTransform,
-            LevelBeforeTunnel = _firstLevel
-        };
+        _generatedMapDataHolder = new GeneratedMapDataHolder(_firstChunckRoadPrefab, _firstLevel);
     }
 
     private void Start()
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
+        _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _generatedMapDataHolder, _numberChunckRoadBeforeEndForSpawner);
     }
 
     /// <summary>
     /// Spawn multiple chunck road randomly (executed from a SpawnerCheckpointComponent).
     /// </summary>
-    public void SpawnMultipleChunckRoadRandomly(SpawnerCheckpointComponent spawner)
+    public void SpawnMultipleChunckRoadRandomly(EndRoadCheckpointComponent spawner)
     {
-        _currentMapGeneratorDto = _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _currentMapGeneratorDto);
-        spawner.gameObject.SetActive(false);
+        _mapGeneratorBusiness.InstantiateRandomChunckRoads(_chuncksRoad, transform, _chuncksNumber, _generatedMapDataHolder, spawner, _numberChunckRoadBeforeEndForSpawner);
     }
 }
